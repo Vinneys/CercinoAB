@@ -6,13 +6,17 @@
 
 	// Basic state management
 	let currentPage = 'main';
+	/** @type {any} */
 	let selectedEvent = null;
+	/** @type {any} */
 	let expandedEvent = null; // Track which event is expanded
+	/** @type {Array<{event: any, quantity: number}>} */
 	let cart = [];
 	let userProfile = {
 		name: '',
 		email: '',
 		phone: '',
+		/** @type {any[]} */
 		tickets: []
 	};
 	let isScrolled = true; // Always in scrolled state
@@ -205,15 +209,18 @@
 	];
 
 	// Navigation functions
+	/** @param {any} page */
 	function goToPage(page) {
 		currentPage = page;
 	}
 
+	/** @param {any} event */
 	function selectEvent(event) {
 		selectedEvent = event;
 		currentPage = 'event';
 	}
 
+	/** @param {any} event */
 	function addToCart(event, quantity = 1) {
 		cart.push({ event, quantity });
 		currentPage = 'checkout';
@@ -233,6 +240,7 @@
 		currentPage = 'profile';
 	}
 
+	/** @param {any} filter */
 	function selectFilter(filter) {
 		selectedFilter = filter;
 	}
@@ -277,7 +285,11 @@
 				<h2>{selectedFilter === 'trending' ? 'Trending' : selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)}</h2>
 				<div class="events-grid">
 				{#each getFilteredEvents() as event}
-					<div class="event-card" on:click={() => selectEvent(event)}>
+					<div class="event-card" 
+						on:click={() => selectEvent(event)}
+						role="button"
+						tabindex="0"
+						on:keydown={(e) => e.key === 'Enter' && selectEvent(event)}>
 						<div class="event-image">
 							<img src={event.image} alt={event.title} />
 							<div class="event-company">{event.company}</div>
@@ -670,6 +682,7 @@
 		margin: 0;
 		color: white !important;
 		display: -webkit-box;
+		line-clamp: 2;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
@@ -827,9 +840,6 @@
 		background: #ff8bb3;
 	}
 
-	.event-details {
-		padding: 1rem;
-	}
 
 	.event-image {
 		width: 100%;
@@ -839,46 +849,7 @@
 		margin-bottom: 1rem;
 	}
 
-	.details {
-		margin: 1rem 0;
-	}
 
-	.detail-item {
-		margin: 0.5rem 0;
-		padding: 0.75rem;
-		background: #2a2a2a;
-		border-radius: 0;
-		color: white;
-	}
-
-	.pricing {
-		margin-top: 2rem;
-		padding: 1rem;
-		background: #2a2a2a;
-		border-radius: 0;
-		text-align: center;
-	}
-
-	.pricing h3 {
-		color: white;
-		margin-bottom: 1rem;
-	}
-
-	.pricing button {
-		background: #ff6b9d;
-		color: white;
-		border: none;
-		padding: 1rem 2rem;
-		border-radius: 0;
-		font-size: 1.1rem;
-		cursor: pointer;
-		margin-top: 1rem;
-		transition: background 0.2s ease;
-	}
-
-	.pricing button:hover {
-		background: #ff8bb3;
-	}
 
 	.checkout-content {
 		padding: 1rem;
@@ -1002,14 +973,14 @@
 		padding: 1rem;
 	}
 
-	.account-section, .tickets-section {
+	.account-section {
 		background: #2a2a2a;
 		padding: 1rem;
 		border-radius: 0;
 		margin-bottom: 1rem;
 	}
 
-	.account-section h2, .tickets-section h2 {
+	.account-section h2 {
 		color: white;
 		margin-bottom: 1rem;
 	}
@@ -1199,9 +1170,6 @@
 			height: 200px;
 		}
 
-		.details-grid {
-			grid-template-columns: 1fr 1fr;
-		}
 	}
 
 	@media (min-width: 1024px) {
@@ -1225,8 +1193,5 @@
 			height: 200px;
 		}
 
-		.details-grid {
-			grid-template-columns: 1fr 1fr;
-		}
 	}
 </style>
