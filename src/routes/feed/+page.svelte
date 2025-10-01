@@ -4,6 +4,7 @@
 	import ProfileIcon from '$lib/assets/ProfileIcon.png';
 	import TicketIcon from '$lib/assets/TicketIcon.png';
 	import SearchIcon from '$lib/assets/SearchIcon.svg';
+	import QrDemo from '$lib/assets/QrDemo.png';
 
 	// Basic state management
 	let currentPage = 'main';
@@ -14,14 +15,52 @@
 	/** @type {Array<{event: any, quantity: number}>} */
 	let cart = [];
 	let userProfile = {
-		name: '',
-		email: '',
-		phone: '',
+		name: 'Alexandra Svensson',
+		email: 'alexandra@example.com',
+		phone: '+46 70 123 4567',
 		/** @type {any[]} */
-		tickets: []
+		tickets: [
+			{
+				id: 1,
+				title: 'Pulse Night',
+				description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat.',
+				image: '/src/lib/assets/CuliseDemo.jpg',
+				price: 250,
+				date: '2025-02-24',
+				time: '22:00',
+				city: 'Stockholm',
+				venue: 'Downtown Club',
+				category: 'music',
+				quantity: 1,
+				purchaseDate: '2025-02-23',
+				status: 'active',
+				attendeeName: 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
+			},
+			{
+				id: 2,
+				title: 'Neon Countdown',
+				description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat.',
+				image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop',
+				price: 300,
+				date: '2025-02-28',
+				time: '21:00',
+				city: 'Göteborg',
+				venue: 'Neon Arena',
+				category: 'music',
+				quantity: 2,
+				purchaseDate: '2025-02-25',
+				status: 'active',
+				attendeeName: 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
+			}
+		]
 	};
 	let isScrolled = true; // Always in scrolled state
 	let activeTab = 'current'; // For tickets page tabs
+	let currentTicketIndex = 0; // Track which ticket is currently displayed
 	let quantity = 1; // For ticket quantity selection
 	let selectedFilter = 'trending'; // Track selected category filter
 
@@ -254,6 +293,27 @@
 		// For other categories, return events that match the category
 		return events.filter(event => event.category === selectedFilter);
 	}
+
+	function getActiveTickets() {
+		return userProfile.tickets.filter(ticket => ticket.status === 'active');
+	}
+
+	function nextTicket() {
+		const activeTickets = getActiveTickets();
+		if (currentTicketIndex < activeTickets.length - 1) {
+			currentTicketIndex++;
+		}
+	}
+
+	function prevTicket() {
+		if (currentTicketIndex > 0) {
+			currentTicketIndex--;
+		}
+	}
+
+	function goToTicket(index) {
+		currentTicketIndex = index;
+	}
 </script>
 
 <div class="app">
@@ -392,45 +452,90 @@
 	{:else if currentPage === 'tickets'}
 		<!-- Tickets Page -->
 		<main class="tickets-page">
-			<header class="page-header">
-				<h1>My Tickets</h1>
-			</header>
-
-			<div class="tickets-content">
-				<div class="ticket-tabs">
-					<button class="tab-btn" class:active={activeTab === 'current'} on:click={() => activeTab = 'current'}>Current Tickets</button>
-					<button class="tab-btn" class:active={activeTab === 'history'} on:click={() => activeTab = 'history'}>History</button>
-				</div>
-
-				<div class="tickets-list">
-					{#if activeTab === 'current'}
-						{#each userProfile.tickets.filter(ticket => ticket.status === 'active') as ticket}
-							<div class="ticket-card">
-								<img src={ticket.image} alt={ticket.title} />
-								<div class="ticket-info">
-									<h3>{ticket.title}</h3>
-									<p>{ticket.city} • {ticket.date}</p>
-									<p>Quantity: {ticket.quantity}</p>
-									<p>Status: {ticket.status}</p>
-									<button>Transfer Ticket</button>
-								</div>
-							</div>
-						{/each}
-					{:else}
-						{#each userProfile.tickets.filter(ticket => ticket.status === 'used' || ticket.status === 'expired') as ticket}
-							<div class="ticket-card">
-								<img src={ticket.image} alt={ticket.title} />
-								<div class="ticket-info">
-									<h3>{ticket.title}</h3>
-									<p>{ticket.city} • {ticket.date}</p>
-									<p>Quantity: {ticket.quantity}</p>
-									<p>Status: {ticket.status}</p>
-								</div>
-							</div>
-						{/each}
-					{/if}
-				</div>
+			<div class="ticket-tabs">
+				<button class="tab-btn" class:active={activeTab === 'current'} on:click={() => activeTab = 'current'}>Ticket</button>
+				<button class="tab-btn" class:active={activeTab === 'history'} on:click={() => activeTab = 'history'}>Ticket History</button>
 			</div>
+
+			{#if activeTab === 'current'}
+				{#each userProfile.tickets.filter(ticket => ticket.status === 'active') as ticket, index}
+					<div class="ticket-detail-card">
+						<!-- QR Code Section -->
+						<div class="qr-code-section">
+							<img src={ticket.qrCode} alt="QR Code" class="qr-code" />
+						</div>
+						
+						<!-- Ticket Details -->
+						<div class="ticket-details">
+							<div class="event-header">
+								<h2 class="event-name">{ticket.title}</h2>
+								<span class="quantity">x{ticket.quantity}</span>
+							</div>
+							
+							<div class="attendee-info">
+								<p class="attendee-name">{ticket.attendeeName}</p>
+								<p class="attendee-age">{ticket.age}år</p>
+							</div>
+							
+							<div class="date-info">
+								<p class="attendance-date">Attedence: {ticket.date.split('-').reverse().join('/')}</p>
+								<p class="bought-date">Bought: {ticket.purchaseDate.split('-').reverse().join('/')}</p>
+							</div>
+						</div>
+						
+						<!-- Location Section -->
+						<div class="location-section">
+							<h3 class="location-title">Location</h3>
+							<div class="map-container">
+								<iframe 
+									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000.0!2d18.0686!3d59.3293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f77e8c77b767d%3A0x4b7ff4d6b47c7571!2sStockholm%2C%20Sweden!5e0!3m2!1sen!2sse!4v1640000000000!5m2!1sen!2sse"
+									width="100%" 
+									height="200" 
+									style="border:0;" 
+									allowfullscreen="" 
+									loading="lazy" 
+									referrerpolicy="no-referrer-when-downgrade">
+								</iframe>
+							</div>
+						</div>
+						
+						<!-- Info Text -->
+						<p class="info-text">All your tickets will be shown in this page up to 24 hours before the event</p>
+					</div>
+
+					<!-- Ticket Navigation Design (Visual Only) -->
+					{#if index < userProfile.tickets.filter(ticket => ticket.status === 'active').length - 1}
+						<div class="ticket-navigation">
+							<div class="nav-line"></div>
+							<div class="nav-tickets">
+								<div class="nav-ticket-text">
+									NEXT TICKET
+								</div>
+								<div class="nav-ticket-text active">
+									NEXT TICKET
+								</div>
+								<div class="nav-ticket-text">
+									NEXT TICKET
+								</div>
+							</div>
+						</div>
+					{/if}
+				{/each}
+			{:else}
+				<div class="tickets-list">
+					{#each userProfile.tickets.filter(ticket => ticket.status === 'used' || ticket.status === 'expired') as ticket}
+						<div class="ticket-card">
+							<img src={ticket.image} alt={ticket.title} />
+							<div class="ticket-info">
+								<h3>{ticket.title}</h3>
+								<p>{ticket.city} • {ticket.date}</p>
+								<p>Quantity: {ticket.quantity}</p>
+								<p>Status: {ticket.status}</p>
+							</div>
+						</div>
+					{/each}
+				</div>
+			{/if}
 		</main>
 
 	{:else if currentPage === 'profile'}
@@ -1035,28 +1140,185 @@
 		background: #F16CB3;
 	}
 
+	.tickets-page {
+		background: #000000;
+		min-height: 100vh;
+		padding: 1rem;
+		padding-bottom: 100px;
+	}
+
 	.ticket-tabs {
 		display: flex;
-		margin: 1rem 0;
+		margin: 0 0 1rem 0;
+		background: #2a2a2a;
+		border-radius: 7px;
+		padding: 0.25rem;
+		gap: 0.25rem;
 	}
 
 	.tab-btn {
 		flex: 1;
-		padding: 0.75rem;
+		padding: 0.75rem 1rem;
 		border: none;
-		background: #3a3a3a;
-		color: white;
+		background: transparent;
+		color: #666666;
 		cursor: pointer;
 		transition: all 0.2s ease;
+		border-radius: 5px;
+		font-weight: 500;
 	}
 
 	.tab-btn:hover {
-		background: #4a4a4a;
+		background: #3a3a3a;
+		color: white;
 	}
 
 	.tab-btn.active {
-		background: #F16CB3;
+		background: #1C1C1C;
 		color: white;
+	}
+
+	.ticket-detail-card {
+		background: #000000;
+		padding: 0;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid #333333;
+		padding-bottom: 2rem;
+	}
+
+	.qr-code-section {
+		display: flex;
+		justify-content: center;
+		background: #000000;
+		border-radius: 7px;
+	}
+
+	.qr-code {
+		width: 280px;
+		height: 280px;
+		object-fit: contain;
+		filter: brightness(0) invert(1);
+	}
+
+	.ticket-details {
+		padding: 1rem 0;
+		color: white;
+	}
+
+	.event-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.event-name {
+		font-size: 1.5rem;
+		font-weight: bold;
+		margin: 0;
+		color: white;
+	}
+
+	.quantity {
+		font-size: 1rem;
+		color: white;
+		font-weight: 500;
+	}
+
+	.attendee-info {
+		margin-bottom: 1rem;
+	}
+
+	.attendee-name {
+		font-size: 1rem;
+		margin: 0 0 0.25rem 0;
+		color: white;
+	}
+
+	.attendee-age {
+		font-size: 0.9rem;
+		margin: 0;
+		color: white;
+	}
+
+	.date-info {
+		text-align: right;
+	}
+
+	.attendance-date,
+	.bought-date {
+		font-size: 0.9rem;
+		margin: 0.25rem 0;
+		color: white;
+	}
+
+	.location-section {
+		margin: 2rem 0;
+	}
+
+	.location-title {
+		font-size: 1.2rem;
+		font-weight: bold;
+		margin: 0 0 1rem 0;
+		color: white;
+	}
+
+	.map-container {
+		border-radius: 7px;
+		overflow: hidden;
+		background: #2a2a2a;
+	}
+
+	.map-container iframe {
+		border-radius: 7px;
+	}
+
+	.info-text {
+		font-size: 0.9rem;
+		color: white;
+		text-align: center;
+		margin: 2rem 0;
+		opacity: 0.8;
+	}
+
+	.ticket-navigation {
+		position: relative;
+		margin: 2rem 0;
+		padding: 1rem 0;
+	}
+
+	.nav-line {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: #F16CB3;
+		transform: translateY(-50%);
+		z-index: 1;
+	}
+
+	.nav-tickets {
+		display: flex;
+		justify-content: center;
+		position: relative;
+		z-index: 2;
+	}
+
+	.nav-ticket-text {
+		color: #666666;
+		font-size: 0.9rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 0.5rem 0.3rem;
+		position: relative;
+	}
+
+	.nav-ticket-text.active {
+		color: white;
+		font-weight: 600;
+		padding: 0.5rem 0.3rem;
 	}
 
 	.ticket-card {
