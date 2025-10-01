@@ -1,13 +1,9 @@
 <script>
-	import { page } from '$app/stores';
 	import LoginImage from '$lib/assets/Login.jpg';
+	import { goto } from '$app/navigation';
 	
-	export let form;
-	
-	let showLoginForm = false;
-	
-	function toggleLoginForm() {
-		showLoginForm = !showLoginForm;
+	function goToFeed() {
+		goto('/feed');
 	}
 </script>
 
@@ -15,41 +11,20 @@
 	<title>Cercino Events - Login</title>
 </svelte:head>
 
-<div class="landing-page" style="background-image: url({LoginImage})">
-	<div class="landing-content">
-		<div class="text-content">
-			<h1 class="headline">Bringing Cercino<br>Members the best<br>events, inspiration<br>and stories in entertainment.</h1>
-			
-			<div class="button-group">
-				<button class="btn-primary" type="button">Join Us</button>
-				<button class="btn-outline" type="button" on:click={toggleLoginForm}>Sign In</button>
-			</div>
-		</div>
+<div class="hero" style="background-image: url({LoginImage})">
+	<div class="hero-content">
+		<h1 class="headline">STEP INTO THE CHAOS</h1>
+		<p class="subtitle">A world of unforgettable nights, unstoppable energy, and the pulse of youth culture at its peak</p>
 		
-		{#if showLoginForm}
-			<div class="login-form">
-				<h2>Sign In</h2>
-				<form method="POST" action="?">
-					<div class="form-group">
-						<label for="username">Username</label>
-						<input type="text" id="username" name="username" required />
-					</div>
-					<div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" id="password" name="password" required />
-					</div>
-					{#if form?.error}
-						<div class="error-message">{form.error}</div>
-					{/if}
-					<button type="submit" class="btn-submit">Sign In</button>
-				</form>
-			</div>
-		{/if}
+		<div class="button-group">
+			<button class="btn-secondary" type="button" on:click={goToFeed}>Sign In</button>
+			<button class="btn-primary" type="button" on:click={goToFeed}>Join Us</button>
+		</div>
 	</div>
 </div>
 
 <style>
-	.landing-page {
+	.hero {
 		min-height: 100vh;
 		background-size: cover;
 		background-position: center;
@@ -61,95 +36,112 @@
 		padding: 0;
 	}
 
-	.landing-page::before {
+	.hero::before {
 		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.8) 100%);
+		background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 100%);
 		z-index: 1;
 	}
 
-	.landing-content {
+	.hero-content {
 		position: relative;
 		z-index: 2;
-		max-width: 50%;
+		max-width: 34rem;
 		color: white;
-		padding: 0 4rem;
+		padding: 0 2rem;
 		margin-left: 0;
-	}
-
-	.text-content {
-		margin-bottom: 3rem;
+		width: 100%;
+		top: 20vh;
 	}
 
 	.headline {
-		font-size: 3.5rem;
-		font-weight: 700;
-		margin-bottom: 0;
+		font-size: clamp(32px, 5.5vw, 48px);
+		font-weight: 600;
 		line-height: 1.1;
-		letter-spacing: -0.02em;
+		margin-bottom: 0.75rem;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		letter-spacing: -0.01em;
+		white-space: nowrap;
+	}
+
+	.subtitle {
+		font-size: clamp(16px, 2.8vw, 20px);
+		font-weight: 400;
+		line-height: 1.4;
+		margin-bottom: 2.5rem;
+		color: rgba(255, 255, 255, 0.9);
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		max-width: 28rem;
 	}
 
 	.button-group {
 		display: flex;
+		flex-direction: row;
 		gap: 1rem;
-		flex-wrap: wrap;
+		margin-bottom: 2rem;
 	}
 
-	.btn-primary, .btn-outline {
-		padding: 1rem 2rem;
-		border-radius: 8px;
-		font-size: 1rem;
-		font-weight: 600;
+	.btn-primary, .btn-secondary {
+		height: 50px;
+		padding: 0 2rem;
+		border-radius: 9999px;
+		font-size: 0.95rem;
+		font-weight: 500;
 		cursor: pointer;
-		transition: all 0.2s ease;
-		border: 2px solid transparent;
-		min-width: 140px;
+		transition: all 0.3s ease;
+		border: none;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 130px;
+		letter-spacing: 0.01em;
 	}
 
 	.btn-primary {
 		background: white;
 		color: black;
-		border-color: white;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	}
 
 	.btn-primary:hover {
-		background: #f0f0f0;
-		border-color: #f0f0f0;
-		transform: translateY(-2px);
+		background: #f5f5f5;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 	}
 
-	.btn-outline {
+	.btn-primary:focus {
+		outline: 2px solid rgba(255, 255, 255, 0.3);
+		outline-offset: 2px;
+	}
+
+	.btn-secondary {
 		background: transparent;
 		color: white;
+		border: 2px solid white;
+	}
+
+	.btn-secondary:hover {
+		background: rgba(255, 255, 255, 0.08);
 		border-color: white;
 	}
 
-	.btn-outline:hover {
-		background: white;
-		color: black;
-		transform: translateY(-2px);
+	.btn-secondary:focus {
+		outline: 2px solid rgba(255, 255, 255, 0.3);
+		outline-offset: 2px;
 	}
 
 	.login-form {
-		background: rgba(0, 0, 0, 0.9);
-		padding: 2.5rem;
+		background: rgba(0, 0, 0, 0.8);
+		padding: 2rem;
 		border-radius: 12px;
-		border: 1px solid #333;
-		max-width: 400px;
-		margin-top: 2rem;
+		border: 1px solid rgba(255, 255, 255, 0.1);
 		backdrop-filter: blur(10px);
-	}
-
-	.login-form h2 {
-		margin-bottom: 1.5rem;
-		font-size: 1.5rem;
-		font-weight: 600;
+		margin-top: 1rem;
+		margin-bottom: 2rem;
 	}
 
 	.form-group {
@@ -161,14 +153,13 @@
 		margin-bottom: 0.5rem;
 		font-weight: 500;
 		font-size: 0.9rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		color: rgba(255, 255, 255, 0.9);
 	}
 
 	.form-group input {
 		width: 100%;
 		padding: 1rem;
-		border: 1px solid #555;
+		border: 1px solid rgba(255, 255, 255, 0.2);
 		border-radius: 8px;
 		background: rgba(255, 255, 255, 0.1);
 		color: white;
@@ -181,19 +172,20 @@
 		outline: none;
 		border-color: white;
 		background: rgba(255, 255, 255, 0.15);
+		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 	}
 
-	.form-group input::placeholder {
-		color: rgba(255, 255, 255, 0.6);
+	.form-group input[aria-invalid="true"] {
+		border-color: #ff6b9d;
 	}
 
 	.btn-submit {
 		width: 100%;
-		padding: 1rem;
+		height: 56px;
 		background: white;
 		color: black;
 		border: none;
-		border-radius: 8px;
+		border-radius: 9999px;
 		font-size: 1rem;
 		font-weight: 600;
 		cursor: pointer;
@@ -202,61 +194,71 @@
 	}
 
 	.btn-submit:hover {
-		background: #f0f0f0;
-		transform: translateY(-2px);
+		background: #f8f8f8;
+		transform: translateY(-1px);
+	}
+
+	.btn-submit:focus {
+		outline: 2px solid rgba(255, 255, 255, 0.5);
+		outline-offset: 2px;
 	}
 
 	.error-message {
 		color: #ff6b9d;
 		font-size: 0.9rem;
-		margin-bottom: 1rem;
-		padding: 0.75rem;
+		margin-top: 0.5rem;
+		padding: 0.5rem;
 		background: rgba(255, 107, 157, 0.1);
-		border-radius: 8px;
+		border-radius: 6px;
 		border: 1px solid rgba(255, 107, 157, 0.3);
 	}
 
-	@media (max-width: 1024px) {
-		.landing-content {
-			max-width: 60%;
-			padding: 0 2rem;
+	/* Desktop styles */
+	@media (min-width: 768px) {
+		.hero-content {
+			padding: 0 5rem;
 		}
 
 		.headline {
-			font-size: 2.8rem;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.landing-page {
-			padding: 2rem;
+			font-size: clamp(42px, 5vw, 56px);
+			margin-bottom: 1rem;
 		}
 
-		.landing-content {
-			max-width: 100%;
-			padding: 0;
-		}
-
-		.headline {
-			font-size: 2.2rem;
+		.subtitle {
+			font-size: clamp(18px, 2.5vw, 22px);
+			margin-bottom: 3rem;
+			max-width: 32rem;
 		}
 
 		.button-group {
-			flex-direction: column;
+			flex-direction: row;
+			gap: 1.5rem;
+			margin-bottom: 3rem;
 		}
 
-		.btn-primary, .btn-outline {
-			width: 100%;
+		.btn-primary, .btn-secondary {
+			height: 52px;
+			padding: 0 2.5rem;
 		}
 	}
 
-	@media (max-width: 480px) {
-		.headline {
-			font-size: 1.8rem;
+	/* Reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.btn-primary, .btn-secondary, .btn-submit, .form-group input {
+			transition: none;
 		}
 
-		.btn-primary, .btn-outline {
-			padding: 0.875rem 1.5rem;
+		.btn-primary:hover, .btn-secondary:hover, .btn-submit:hover {
+			transform: none;
 		}
+	}
+
+	/* Focus management for keyboard navigation */
+	.btn-primary:focus-visible,
+	.btn-secondary:focus-visible,
+	.btn-submit:focus-visible,
+	.form-group input:focus-visible {
+		outline: 2px solid rgba(255, 255, 255, 0.8);
+		outline-offset: 2px;
 	}
 </style>
