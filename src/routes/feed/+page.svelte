@@ -3,6 +3,7 @@
 	import FeedIcon from '$lib/assets/FeedIcon.png';
 	import ProfileIcon from '$lib/assets/ProfileIcon.png';
 	import TicketIcon from '$lib/assets/TicketIcon.png';
+	import SearchIcon from '$lib/assets/SearchIcon.svg';
 
 	// Basic state management
 	let currentPage = 'main';
@@ -262,6 +263,7 @@
 			<!-- Fixed Search and Categories Section -->
 			<div class="search-categories-section" class:scrolled={isScrolled}>
 				<div class="search-bar">
+					<img src={SearchIcon} alt="Search" class="search-icon" />
 					<input type="text" placeholder="Search" />
 				</div>
 				
@@ -518,26 +520,39 @@
 
 	.search-bar {
 		display: flex;
+		align-items: center;
+		background: #000000;
+		border: 1px solid #333333;
+		border-radius: 0;
+		height: 2rem;
+		padding: 0 0.8rem;
+		gap: 0.5rem;
+	}
+
+	.search-icon {
+		width: 16px;
+		height: 16px;
+		filter: brightness(0) saturate(100%) invert(60%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+		flex-shrink: 0;
 	}
 
 	.search-bar input {
 		flex: 1;
-		padding: 0.3rem 0.8rem;
-		background: #000000;
-		border: 1px solid #333333;
-		border-radius: 0;
+		padding: 0;
+		background: transparent;
+		border: none;
 		color: white;
 		font-size: 16px;
 		outline: none;
 		box-sizing: border-box;
-		height: 2rem;
+		height: 100%;
 	}
 
 	.search-bar input::placeholder {
 		color: #999;
 	}
 
-	.search-bar input:focus {
+	.search-bar:focus-within {
 		background: #111111;
 		border-color: #555555;
 	}
@@ -548,7 +563,7 @@
 
 	.category-filters {
 		display: flex;
-		gap: 0.5rem;
+		gap: 0.2rem;
 		overflow-x: auto;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
@@ -564,7 +579,7 @@
 		border: 1px solid #333333;
 		background: #000000;
 		color: white;
-		border-radius: 0;
+		border-radius: 7px;
 		cursor: pointer;
 		white-space: nowrap;
 		flex-shrink: 0;
@@ -604,7 +619,7 @@
 
 	.event-card {
 		background: #000000;
-		border-radius: 0;
+		border-radius: 7px;
 		overflow: hidden;
 		cursor: pointer;
 		transition: transform 0.2s ease;
