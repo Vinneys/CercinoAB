@@ -30,7 +30,7 @@
 			id: 1, 
 			title: 'Pulse Night', 
 			description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat. Expect pure vibes, booming sound, and unforgettable moments.',
-			image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop',
+			image: '/src/lib/assets/CuliseDemo.jpg',
 			price: 250,
 			date: '2024-12-15',
 			time: '22:00',
