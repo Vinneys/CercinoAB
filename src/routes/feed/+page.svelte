@@ -55,6 +55,78 @@
 				attendeeName: 'Alexandra Svensson',
 				age: 18,
 				qrCode: QrDemo
+			},
+			{
+				id: 3,
+				title: 'Pulse Night',
+				description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat.',
+				image: '/src/lib/assets/CuliseDemo.jpg',
+				price: 250,
+				date: '2025-01-15',
+				time: '22:00',
+				city: 'Helsingborg',
+				venue: 'Redaregatan 46A',
+				category: 'music',
+				quantity: 1,
+				purchaseDate: '2025-01-10',
+				status: 'completed',
+				attendeeName: 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
+			},
+			{
+				id: 4,
+				title: 'Pulse Night',
+				description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat.',
+				image: '/src/lib/assets/CuliseDemo.jpg',
+				price: 250,
+				date: '2025-01-08',
+				time: '22:00',
+				city: 'Helsingborg',
+				venue: 'Redaregatan 46A',
+				category: 'music',
+				quantity: 1,
+				purchaseDate: '2025-01-05',
+				status: 'completed',
+				attendeeName: 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
+			},
+			{
+				id: 5,
+				title: 'Pulse Night',
+				description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat.',
+				image: '/src/lib/assets/CuliseDemo.jpg',
+				price: 250,
+				date: '2025-01-03',
+				time: '22:00',
+				city: 'Helsingborg',
+				venue: 'Redaregatan 46A',
+				category: 'music',
+				quantity: 1,
+				purchaseDate: '2024-12-30',
+				status: 'refunded',
+				attendeeName: 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
+			},
+			{
+				id: 6,
+				title: 'Pulse Night',
+				description: 'A high-energy party where the music never stops and the crowd moves as one heartbeat.',
+				image: '/src/lib/assets/CuliseDemo.jpg',
+				price: 250,
+				date: '2024-12-28',
+				time: '22:00',
+				city: 'Helsingborg',
+				venue: 'Redaregatan 46A',
+				category: 'music',
+				quantity: 1,
+				purchaseDate: '2024-12-25',
+				status: 'completed',
+				attendeeName: 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
 			}
 		]
 	};
@@ -63,6 +135,9 @@
 	let currentTicketIndex = 0; // Track which ticket is currently displayed
 	let quantity = 1; // For ticket quantity selection
 	let selectedFilter = 'trending'; // Track selected category filter
+	/** @type {number | null} */
+	let expandedHistoryTicket = null; // Track which history ticket is expanded
+	let nextTicketAvailable = null; // Track when next ticket will be available
 
 	// Sample events data
 	const events = [
@@ -269,15 +344,24 @@
 	function completePurchase() {
 		// Add tickets to user profile
 		cart.forEach(item => {
+			const now = new Date();
+			const formattedDate = now.toLocaleDateString('en-GB'); // dd/mm/yyyy format
+			
 			userProfile.tickets.push({
 				...item.event,
 				quantity: item.quantity,
-				purchaseDate: new Date().toISOString(),
-				status: 'active'
+				purchaseDate: formattedDate,
+				status: 'active',
+				attendeeName: userProfile.name || 'Alexandra Svensson',
+				age: 18,
+				qrCode: QrDemo
 			});
 		});
 		cart = [];
 		currentPage = 'profile';
+		
+		// Calculate when next ticket will be available
+		calculateNextTicketAvailability();
 	}
 
 	/** @param {any} filter */
@@ -311,8 +395,41 @@
 		}
 	}
 
+	/** @param {number} index */
 	function goToTicket(index) {
 		currentTicketIndex = index;
+	}
+
+	/** @param {number} ticketId */
+	function toggleHistoryTicket(ticketId) {
+		try {
+			expandedHistoryTicket = expandedHistoryTicket === ticketId ? null : ticketId;
+		} catch (error) {
+			console.error('Error toggling history ticket:', error);
+		}
+	}
+
+	function calculateNextTicketAvailability() {
+		const activeTickets = getActiveTickets();
+		if (activeTickets.length > 0) {
+			// Find the earliest attendance date among active tickets
+			const earliestDate = activeTickets.reduce((earliest, ticket) => {
+				const ticketDate = new Date(ticket.date);
+				return ticketDate < earliest ? ticketDate : earliest;
+			}, new Date(activeTickets[0].date));
+			
+			// Set next ticket available date to the day after the earliest attendance date
+			const nextAvailable = new Date(earliestDate);
+			nextAvailable.setDate(nextAvailable.getDate() + 1);
+			nextTicketAvailable = nextAvailable.toLocaleDateString('en-GB');
+		} else {
+			nextTicketAvailable = null;
+		}
+	}
+
+	// Reactive statement to calculate next ticket availability when tickets change
+	$: if (userProfile.tickets) {
+		calculateNextTicketAvailability();
 	}
 </script>
 
@@ -458,28 +575,30 @@
 			</div>
 
 			{#if activeTab === 'current'}
-				{#each userProfile.tickets.filter(ticket => ticket.status === 'active') as ticket, index}
+				{@const activeTickets = userProfile.tickets.filter(ticket => ticket.status === 'active')}
+				{#if activeTickets.length > 0}
+					{@const currentTicket = activeTickets[currentTicketIndex]}
 					<div class="ticket-detail-card">
 						<!-- QR Code Section -->
 						<div class="qr-code-section">
-							<img src={ticket.qrCode} alt="QR Code" class="qr-code" />
+							<img src={currentTicket.qrCode} alt="QR Code" class="qr-code" />
 						</div>
 						
 						<!-- Ticket Details -->
 						<div class="ticket-details">
 							<div class="event-header">
-								<h2 class="event-name">{ticket.title}</h2>
-								<span class="quantity">x{ticket.quantity}</span>
+								<h2 class="event-name">{currentTicket.title}</h2>
+								<span class="quantity">x{currentTicket.quantity}</span>
 							</div>
 							
 							<div class="attendee-info">
-								<p class="attendee-name">{ticket.attendeeName}</p>
-								<p class="attendee-age">{ticket.age}år</p>
+								<p class="attendee-name">{currentTicket.attendeeName}</p>
+								<p class="attendee-age">{currentTicket.age}år</p>
 							</div>
 							
 							<div class="date-info">
-								<p class="attendance-date">Attedence: {ticket.date.split('-').reverse().join('/')}</p>
-								<p class="bought-date">Bought: {ticket.purchaseDate.split('-').reverse().join('/')}</p>
+								<p class="attendance-date">Attedence: {currentTicket.date.split('-').reverse().join('/')}</p>
+								<p class="bought-date">Bought: {currentTicket.purchaseDate}</p>
 							</div>
 						</div>
 						
@@ -492,9 +611,10 @@
 									width="100%" 
 									height="200" 
 									style="border:0;" 
-									allowfullscreen="" 
+									allowfullscreen={true}
 									loading="lazy" 
-									referrerpolicy="no-referrer-when-downgrade">
+									referrerpolicy="no-referrer-when-downgrade"
+									title="Event location map">
 								</iframe>
 							</div>
 						</div>
@@ -502,36 +622,65 @@
 						<!-- Info Text -->
 						<p class="info-text">All your tickets will be shown in this page up to 24 hours before the event</p>
 					</div>
-
-					<!-- Ticket Navigation Design (Visual Only) -->
-					{#if index < userProfile.tickets.filter(ticket => ticket.status === 'active').length - 1}
-						<div class="ticket-navigation">
-							<div class="nav-line"></div>
-							<div class="nav-tickets">
-								<div class="nav-ticket-text">
-									NEXT TICKET
-								</div>
-								<div class="nav-ticket-text active">
-									NEXT TICKET
-								</div>
-								<div class="nav-ticket-text">
-									NEXT TICKET
-								</div>
-							</div>
+					
+					<!-- Next Ticket Availability -->
+					{#if nextTicketAvailable}
+						<div class="next-ticket-info">
+							<p class="next-ticket-text">Next ticket available after: <span class="next-ticket-date">{nextTicketAvailable}</span></p>
 						</div>
 					{/if}
-				{/each}
+				{:else}
+					<div class="no-tickets">
+						<p>No active tickets</p>
+					</div>
+				{/if}
 			{:else}
-				<div class="tickets-list">
-					{#each userProfile.tickets.filter(ticket => ticket.status === 'used' || ticket.status === 'expired') as ticket}
-						<div class="ticket-card">
-							<img src={ticket.image} alt={ticket.title} />
-							<div class="ticket-info">
-								<h3>{ticket.title}</h3>
-								<p>{ticket.city} • {ticket.date}</p>
-								<p>Quantity: {ticket.quantity}</p>
-								<p>Status: {ticket.status}</p>
+				{@const historyTickets = userProfile.tickets.filter(ticket => ticket.status === 'completed' || ticket.status === 'refunded')}
+				<div class="tickets-history">
+					{#each historyTickets as ticket (ticket.id)}
+						<div class="history-ticket-card" class:expanded={expandedHistoryTicket === ticket.id}>
+							<div 
+								class="history-image-section" 
+								on:click={() => toggleHistoryTicket(ticket.id)}
+								on:keydown={(e) => e.key === 'Enter' && toggleHistoryTicket(ticket.id)}
+								role="button"
+								tabindex="0"
+								aria-label="Toggle ticket details for {ticket.title}">
+								<img 
+									src={ticket.image} 
+									alt={ticket.title} 
+									class="history-image"
+									on:error={(e) => console.error('Image load error for ticket', ticket.id, e)}
+									loading="lazy" />
+								<div class="history-overlay">
+									<h3 class="history-title">{ticket.title}</h3>
+								</div>
 							</div>
+							
+							{#if expandedHistoryTicket === ticket.id}
+								<div class="history-expanded-content">
+									<div class="expanded-details">
+										<div class="detail-row">
+											<span class="detail-label">LOCATION</span>
+											<span class="detail-value">{ticket.venue}, {ticket.city}</span>
+										</div>
+										<div class="detail-row">
+											<span class="detail-quantity">x{ticket.quantity}</span>
+										</div>
+										<div class="detail-row">
+											<span class="detail-label">Attendance: none</span>
+										</div>
+										<div class="detail-row">
+											<span class="detail-label">Bought: {ticket.purchaseDate.split('-').reverse().join('/')}</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="history-text-section">
+									<span class="status-text">{ticket.status === 'completed' ? 'Completed' : 'Refounded'}</span>
+									<span class="support-text">Support</span>
+								</div>
+							{/if}
 						</div>
 					{/each}
 				</div>
@@ -1089,10 +1238,6 @@
 		padding: 1rem;
 	}
 
-	.tickets-content {
-		padding: 1rem;
-	}
-
 	.account-section {
 		background: #2a2a2a;
 		padding: 1rem;
@@ -1144,7 +1289,6 @@
 		background: #000000;
 		min-height: 100vh;
 		padding: 1rem;
-		padding-bottom: 100px;
 	}
 
 	.ticket-tabs {
@@ -1181,9 +1325,35 @@
 	.ticket-detail-card {
 		background: #000000;
 		padding: 0;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 		border-bottom: 1px solid #333333;
-		padding-bottom: 2rem;
+		padding-bottom: 1rem;
+	}
+
+	.next-ticket-info {
+		background: #1a1a1a;
+		border: 1px solid #F16CB3;
+		border-radius: 7px;
+		padding: 1rem;
+		margin: 1rem 0;
+		text-align: center;
+	}
+
+	.next-ticket-text {
+		color: white;
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	.next-ticket-date {
+		color: #F16CB3;
+		font-weight: bold;
+	}
+
+	.no-tickets {
+		text-align: center;
+		padding: 2rem;
+		color: #666;
 	}
 
 	.qr-code-section {
@@ -1253,13 +1423,13 @@
 	}
 
 	.location-section {
-		margin: 2rem 0;
+		margin: 1rem 0 0.5rem 0;
 	}
 
 	.location-title {
 		font-size: 1.2rem;
 		font-weight: bold;
-		margin: 0 0 1rem 0;
+		margin: 0 0 0.5rem 0;
 		color: white;
 	}
 
@@ -1277,7 +1447,7 @@
 		font-size: 0.9rem;
 		color: white;
 		text-align: center;
-		margin: 2rem 0;
+		margin: 1rem 0 0.5rem 0;
 		opacity: 0.8;
 	}
 
@@ -1321,46 +1491,123 @@
 		padding: 0.5rem 0.3rem;
 	}
 
-	.ticket-card {
-		display: flex;
-		gap: 1rem;
-		padding: 1rem;
-		border: 1px solid #3a3a3a;
-		border-radius: 0;
+	.tickets-history {
+		padding: 0;
+	}
+
+	.history-ticket-card {
+		background: transparent;
+		border-radius: 7px;
 		margin-bottom: 1rem;
-		background: #1a1a1a;
+		overflow: hidden;
 	}
 
-	.ticket-card img {
-		width: 80px;
-		height: 80px;
-		object-fit: cover;
-		border-radius: 0;
-	}
-
-	.ticket-card h3 {
-		color: white;
-		margin: 0 0 0.5rem 0;
-	}
-
-	.ticket-card p {
-		color: #ccc;
-		margin: 0.25rem 0;
-	}
-
-	.ticket-card button {
-		background: #3a3a3a;
-		color: white;
-		border: none;
-		padding: 0.5rem 1rem;
-		border-radius: 0;
+	.history-image-section {
+		position: relative;
+		width: 100%;
+		height: 8vh;
+		overflow: hidden;
+		border-radius: 7px;
 		cursor: pointer;
-		margin-top: 0.5rem;
-		transition: background 0.2s ease;
 	}
 
-	.ticket-card button:hover {
-		background: #4a4a4a;
+	.history-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.history-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.4);
+		display: flex;
+		align-items: flex-start;
+		padding: 1rem;
+	}
+
+	.history-title {
+		color: white;
+		font-size: 1.2rem;
+		font-weight: bold;
+		margin: 0;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+	}
+
+	.history-text-section {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem 0;
+		background: transparent;
+		margin-top: 0.5rem;
+	}
+
+	.status-text {
+		color: white;
+		font-size: 0.9rem;
+		font-weight: 500;
+		margin: 0;
+	}
+
+	.support-text {
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 400;
+		margin: 0;
+	}
+
+	.history-expanded-content {
+		background: #2a2a2a;
+		padding: 1rem;
+		border-radius: 0 0 7px 7px;
+		animation: expandDown 0.3s ease-out;
+	}
+
+	.expanded-details {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.detail-row {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.detail-label {
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	.detail-value {
+		color: white;
+		font-size: 0.9rem;
+		font-weight: 400;
+	}
+
+	.detail-quantity {
+		color: white;
+		font-size: 2rem;
+		font-weight: bold;
+		margin: 0.5rem 0;
+	}
+
+	@keyframes expandDown {
+		from {
+			opacity: 0;
+			max-height: 0;
+		}
+		to {
+			opacity: 1;
+			max-height: 200px;
+		}
 	}
 
 	.bottom-nav {
