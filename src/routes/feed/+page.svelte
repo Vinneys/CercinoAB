@@ -262,13 +262,13 @@
 			<!-- Fixed Search and Categories Section -->
 			<div class="search-categories-section" class:scrolled={isScrolled}>
 				<div class="search-bar">
-					<input type="text" placeholder="Sök evenemang..." />
+					<input type="text" placeholder="Search" />
 				</div>
 				
 				<section class="categories">
 					<div class="category-filters">
 						<button class:active={selectedFilter === 'trending'} on:click={() => selectFilter('trending')}>Trending</button>
-						<button class:active={selectedFilter === 'musik'} on:click={() => selectFilter('musik')}>Musik</button>
+						<button class:active={selectedFilter === 'music'} on:click={() => selectFilter('music')}>Music</button>
 						<button class:active={selectedFilter === 'art'} on:click={() => selectFilter('art')}>Art</button>
 						<button class:active={selectedFilter === 'food'} on:click={() => selectFilter('food')}>Food</button>
 						<button class:active={selectedFilter === 'comedy'} on:click={() => selectFilter('comedy')}>Comedy</button>
@@ -344,44 +344,44 @@
 		<!-- Checkout Page -->
 		<main class="checkout-page">
 			<header class="page-header">
-				<button on:click={() => goToPage('main')}>← Tillbaka</button>
-				<h1>Kassa</h1>
+				<button on:click={() => goToPage('main')}>← Back</button>
+				<h1>Checkout</h1>
 			</header>
 
 			<div class="checkout-content">
 				<div class="cart-items">
-					<h2>Din beställning</h2>
+					<h2>Your Order</h2>
 					{#each cart as item}
 						<div class="cart-item">
 							<img src={item.event.image} alt={item.event.title} />
 							<div class="item-info">
 								<h3>{item.event.title}</h3>
 								<p>{item.event.city} • {item.event.date}</p>
-								<p>Antal: {item.quantity}</p>
-								<p>Pris: {item.event.price * item.quantity} kr</p>
+								<p>Quantity: {item.quantity}</p>
+								<p>Price: {item.event.price * item.quantity} kr</p>
 							</div>
 						</div>
 					{/each}
 				</div>
 
 				<div class="payment-section">
-					<h2>Betalning</h2>
+					<h2>Payment</h2>
 					<div class="payment-methods">
 						<button class="payment-btn active">Swish</button>
-						<button class="payment-btn">Kort</button>
-						<button class="payment-btn">Banköverföring</button>
+						<button class="payment-btn">Card</button>
+						<button class="payment-btn">Bank Transfer</button>
 					</div>
 
 					<div class="user-info">
-						<h3>Dina uppgifter</h3>
-						<input type="text" placeholder="Namn" bind:value={userProfile.name} />
-						<input type="email" placeholder="E-post" bind:value={userProfile.email} />
-						<input type="tel" placeholder="Telefon" bind:value={userProfile.phone} />
+						<h3>Your Information</h3>
+						<input type="text" placeholder="Name" bind:value={userProfile.name} />
+						<input type="email" placeholder="Email" bind:value={userProfile.email} />
+						<input type="tel" placeholder="Phone" bind:value={userProfile.phone} />
 					</div>
 
 					<div class="total">
-						<h3>Totalt: {cart.reduce((sum, item) => sum + (item.event.price * item.quantity), 0)} kr</h3>
-						<button on:click={completePurchase} class="purchase-btn">Slutför köp</button>
+						<h3>Total: {cart.reduce((sum, item) => sum + (item.event.price * item.quantity), 0)} kr</h3>
+						<button on:click={completePurchase} class="purchase-btn">Complete Purchase</button>
 					</div>
 				</div>
 			</div>
@@ -391,13 +391,13 @@
 		<!-- Tickets Page -->
 		<main class="tickets-page">
 			<header class="page-header">
-				<h1>Mina Biljetter</h1>
+				<h1>My Tickets</h1>
 			</header>
 
 			<div class="tickets-content">
 				<div class="ticket-tabs">
-					<button class="tab-btn" class:active={activeTab === 'current'} on:click={() => activeTab = 'current'}>Nuvarande biljetter</button>
-					<button class="tab-btn" class:active={activeTab === 'history'} on:click={() => activeTab = 'history'}>Historik</button>
+					<button class="tab-btn" class:active={activeTab === 'current'} on:click={() => activeTab = 'current'}>Current Tickets</button>
+					<button class="tab-btn" class:active={activeTab === 'history'} on:click={() => activeTab = 'history'}>History</button>
 				</div>
 
 				<div class="tickets-list">
@@ -408,9 +408,9 @@
 								<div class="ticket-info">
 									<h3>{ticket.title}</h3>
 									<p>{ticket.city} • {ticket.date}</p>
-									<p>Antal: {ticket.quantity}</p>
+									<p>Quantity: {ticket.quantity}</p>
 									<p>Status: {ticket.status}</p>
-									<button>Överför biljett</button>
+									<button>Transfer Ticket</button>
 								</div>
 							</div>
 						{/each}
@@ -421,7 +421,7 @@
 								<div class="ticket-info">
 									<h3>{ticket.title}</h3>
 									<p>{ticket.city} • {ticket.date}</p>
-									<p>Antal: {ticket.quantity}</p>
+									<p>Quantity: {ticket.quantity}</p>
 									<p>Status: {ticket.status}</p>
 								</div>
 							</div>
@@ -435,17 +435,17 @@
 		<!-- Profile Page -->
 		<main class="profile-page">
 			<header class="page-header">
-				<h1>Profil</h1>
+				<h1>Profile</h1>
 			</header>
 
 			<div class="profile-content">
 				<div class="account-section">
-					<h2>Kontohantering</h2>
+					<h2>Account Management</h2>
 					<div class="account-info">
-						<input type="text" placeholder="Namn" bind:value={userProfile.name} />
-						<input type="email" placeholder="E-post" bind:value={userProfile.email} />
-						<input type="tel" placeholder="Telefon" bind:value={userProfile.phone} />
-						<button>Spara ändringar</button>
+						<input type="text" placeholder="Name" bind:value={userProfile.name} />
+						<input type="email" placeholder="Email" bind:value={userProfile.email} />
+						<input type="tel" placeholder="Phone" bind:value={userProfile.phone} />
+						<button>Save Changes</button>
 					</div>
 				</div>
 			</div>
@@ -460,11 +460,11 @@
 		</button>
 		<button class="nav-item" class:active={currentPage === 'tickets'} on:click={() => goToPage('tickets')}>
 			<img src={TicketIcon} alt="Tickets" class="nav-icon" />
-			<span>Biljetter</span>
+			<span>Tickets</span>
 		</button>
 		<button class="nav-item" class:active={currentPage === 'profile'} on:click={() => goToPage('profile')}>
 			<img src={ProfileIcon} alt="Profile" class="nav-icon" />
-			<span>Profil</span>
+			<span>Profile</span>
 		</button>
 	</nav>
 </div>
@@ -580,7 +580,7 @@
 	}
 
 	.category-filters button.active {
-		background: #ff6b9d;
+		background: #F16CB3;
 		color: white;
 	}
 
@@ -823,7 +823,7 @@
 	}
 
 	.ticket-purchase-bar .buy-ticket-btn {
-		background: #ff6b9d;
+		background: #F16CB3;
 		color: white;
 		border: none;
 		padding: 0.6rem 1.2rem;
@@ -837,7 +837,7 @@
 	}
 
 	.ticket-purchase-bar .buy-ticket-btn:hover {
-		background: #ff8bb3;
+		background: #F16CB3;
 	}
 
 
@@ -915,7 +915,7 @@
 	}
 
 	.payment-btn.active {
-		background: #ff6b9d;
+		background: #F16CB3;
 		color: white;
 	}
 
@@ -950,7 +950,7 @@
 
 	.purchase-btn {
 		width: 100%;
-		background: #ff6b9d;
+		background: #F16CB3;
 		color: white;
 		border: none;
 		padding: 1rem;
@@ -962,7 +962,7 @@
 	}
 
 	.purchase-btn:hover {
-		background: #ff8bb3;
+		background: #F16CB3;
 	}
 
 	.profile-content {
@@ -1006,7 +1006,7 @@
 	}
 
 	.account-info button {
-		background: #ff6b9d;
+		background: #F16CB3;
 		color: white;
 		border: none;
 		padding: 0.75rem 1rem;
@@ -1017,7 +1017,7 @@
 	}
 
 	.account-info button:hover {
-		background: #ff8bb3;
+		background: #F16CB3;
 	}
 
 	.ticket-tabs {
@@ -1040,7 +1040,7 @@
 	}
 
 	.tab-btn.active {
-		background: #ff6b9d;
+		background: #F16CB3;
 		color: white;
 	}
 
@@ -1118,11 +1118,11 @@
 	}
 
 	.nav-item:hover {
-		color: #ff6b9d;
+		color: #F16CB3;
 	}
 
 	.nav-item.active {
-		color: #ff6b9d;
+		color: #F16CB3;
 	}
 
 	.nav-icon {

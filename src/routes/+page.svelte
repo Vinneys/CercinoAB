@@ -43,7 +43,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 100%);
+		background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 100%);
 		z-index: 1;
 	}
 
@@ -103,13 +103,13 @@
 	}
 
 	.btn-primary {
-		background: white;
-		color: black;
+		background: #F16CB3;
+		color: white;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	}
 
 	.btn-primary:hover {
-		background: #f5f5f5;
+		background: #F16CB3;
 		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 	}
 
@@ -176,7 +176,7 @@
 	}
 
 	.form-group input[aria-invalid="true"] {
-		border-color: #ff6b9d;
+		border-color: #F16CB3;
 	}
 
 	.btn-submit {
@@ -204,7 +204,7 @@
 	}
 
 	.error-message {
-		color: #ff6b9d;
+		color: #F16CB3;
 		font-size: 0.9rem;
 		margin-top: 0.5rem;
 		padding: 0.5rem;
