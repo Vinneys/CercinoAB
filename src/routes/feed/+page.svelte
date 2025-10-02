@@ -689,46 +689,51 @@
 	{:else if currentPage === 'profile'}
 		<!-- Profile Page -->
 		<main class="profile-page">
-			<!-- Logo Section -->
-			<div class="logo-section">
-				<img src={CercinoMainLogo} alt="Cercino Logo" class="main-logo" />
-			</div>
+			<div class="profile-content">
+				<!-- Logo Section -->
+				<div class="logo-section">
+					<img src={CercinoMainLogo} alt="Cercino Logo" class="main-logo" />
+				</div>
 
-			<!-- Settings Section -->
-			<div class="settings-section">
-				<h2 class="settings-title">Settings</h2>
-				
-				<div class="settings-card">
-					<div class="setting-row">
-						<span class="setting-label">Alexandra Svensson</span>
-						<span class="setting-value">18år</span>
-					</div>
+				<!-- Settings Section -->
+				<div class="settings-section">
+					<h2 class="settings-title">Settings</h2>
 					
-					<div class="setting-row">
-						<span class="setting-label">Alexsven@gmail.com</span>
-						<button class="change-btn">Change</button>
-					</div>
-					
-					<div class="setting-row">
-						<span class="setting-label">Password: Ale*********</span>
-						<button class="change-btn">Change</button>
-					</div>
-					
-					<div class="setting-row">
-						<span class="setting-label">Phone: +46 73 333 33 33</span>
-						<button class="change-btn">Change</button>
+					<div class="settings-card">
+						<div class="setting-row">
+							<span class="setting-label name-age">Alexandra Svensson</span>
+							<span class="setting-value name-age">18år</span>
+						</div>
+						
+						<div class="setting-row">
+							<span class="setting-label">Alexsven@gmail.com</span>
+							<button class="change-btn">Change</button>
+						</div>
+						
+						<div class="setting-row">
+							<span class="setting-label">Password: Ale*********</span>
+							<button class="change-btn">Change</button>
+						</div>
+						
+						<div class="setting-row">
+							<span class="setting-label">Phone: +46 73 333 33 33</span>
+							<button class="change-btn">Change</button>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- Logout Section -->
-			<div class="logout-section">
-				<button class="logout-btn">Log out</button>
-			</div>
+				<!-- Bottom Section -->
+				<div class="bottom-section">
+					<!-- Logout Section -->
+					<div class="logout-section">
+						<button class="logout-btn">Log out</button>
+					</div>
 
-			<!-- Copyright -->
-			<div class="copyright-section">
-				<p class="copyright-text">©Cercino 2026 BETA v.1</p>
+					<!-- Copyright -->
+					<div class="copyright-section">
+						<p class="copyright-text">©Cercino 2026 BETA v.1</p>
+					</div>
+				</div>
 			</div>
 		</main>
 	{/if}
@@ -1261,14 +1266,22 @@
 
 	.profile-page {
 		background: #000000;
-		height: 100vh;
+		height: 100%;
 		padding: 1rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: space-between;
 		overflow: hidden;
 		box-sizing: border-box;
+	}
+
+	.profile-content {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.logo-section {
@@ -1278,7 +1291,7 @@
 	}
 
 	.main-logo {
-		width: 200px;
+		width: 60%;
 		height: auto;
 		object-fit: contain;
 	}
@@ -1298,9 +1311,11 @@
 	}
 
 	.settings-card {
-		background: #2a2a2a;
+		background: #1C1C1C;
 		border-radius: 7px;
 		padding: 1rem;
+		padding-top: 0.2rem;
+		padding-bottom: 0.2rem;
 	}
 
 	.setting-row {
@@ -1308,7 +1323,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.75rem 0;
-		border-bottom: 1px solid #3a3a3a;
+		border-bottom: 1px solid #000000;
 	}
 
 	.setting-row:last-child {
@@ -1324,6 +1339,14 @@
 		color: white;
 		font-size: 0.9rem;
 		font-weight: 500;
+	}
+
+	.setting-label.name-age {
+		opacity: 0.5;
+	}
+
+	.setting-value.name-age {
+		opacity: 0.5;
 	}
 
 	.change-btn {
@@ -1342,8 +1365,19 @@
 		background: #e55ba0;
 	}
 
+	.bottom-section {
+		display: flex;
+		flex-direction: column;
+		padding-top: 20%;
+		align-items: center;
+		justify-content: flex-end;
+		flex: 1;
+		gap: 5rem;
+		padding-bottom: 0.5rem;
+	}
+
 	.logout-section {
-		margin-bottom: 0.5rem;
+		margin-bottom: 0;
 	}
 
 	.logout-btn {
@@ -1363,7 +1397,6 @@
 
 	.copyright-section {
 		margin-top: 0;
-		margin-bottom: 0;
 	}
 
 	.copyright-text {
