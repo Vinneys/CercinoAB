@@ -5,6 +5,7 @@
 	import TicketIcon from '$lib/assets/TicketIcon.png';
 	import SearchIcon from '$lib/assets/SearchIcon.svg';
 	import QrDemo from '$lib/assets/QrDemo.png';
+	import CercinoMainLogo from '$lib/assets/CercinoMainLogo.png';
 
 	// Basic state management
 	let currentPage = 'main';
@@ -620,15 +621,13 @@
 						</div>
 						
 						<!-- Info Text -->
-						<p class="info-text">All your tickets will be shown in this page up to 24 hours before the event</p>
+						<p class="info-text">
+							All your tickets will be shown in this page up to 24 hours before the event.
+							{#if nextTicketAvailable}
+								<span class="next-ticket-text"> Next ticket available after: <span class="next-ticket-date">{nextTicketAvailable}</span></span>
+							{/if}
+						</p>
 					</div>
-					
-					<!-- Next Ticket Availability -->
-					{#if nextTicketAvailable}
-						<div class="next-ticket-info">
-							<p class="next-ticket-text">Next ticket available after: <span class="next-ticket-date">{nextTicketAvailable}</span></p>
-						</div>
-					{/if}
 				{:else}
 					<div class="no-tickets">
 						<p>No active tickets</p>
@@ -690,20 +689,46 @@
 	{:else if currentPage === 'profile'}
 		<!-- Profile Page -->
 		<main class="profile-page">
-			<header class="page-header">
-				<h1>Profile</h1>
-			</header>
+			<!-- Logo Section -->
+			<div class="logo-section">
+				<img src={CercinoMainLogo} alt="Cercino Logo" class="main-logo" />
+			</div>
 
-			<div class="profile-content">
-				<div class="account-section">
-					<h2>Account Management</h2>
-					<div class="account-info">
-						<input type="text" placeholder="Name" bind:value={userProfile.name} />
-						<input type="email" placeholder="Email" bind:value={userProfile.email} />
-						<input type="tel" placeholder="Phone" bind:value={userProfile.phone} />
-						<button>Save Changes</button>
+			<!-- Settings Section -->
+			<div class="settings-section">
+				<h2 class="settings-title">Settings</h2>
+				
+				<div class="settings-card">
+					<div class="setting-row">
+						<span class="setting-label">Alexandra Svensson</span>
+						<span class="setting-value">18år</span>
+					</div>
+					
+					<div class="setting-row">
+						<span class="setting-label">Alexsven@gmail.com</span>
+						<button class="change-btn">Change</button>
+					</div>
+					
+					<div class="setting-row">
+						<span class="setting-label">Password: Ale*********</span>
+						<button class="change-btn">Change</button>
+					</div>
+					
+					<div class="setting-row">
+						<span class="setting-label">Phone: +46 73 333 33 33</span>
+						<button class="change-btn">Change</button>
 					</div>
 				</div>
+			</div>
+
+			<!-- Logout Section -->
+			<div class="logout-section">
+				<button class="logout-btn">Log out</button>
+			</div>
+
+			<!-- Copyright -->
+			<div class="copyright-section">
+				<p class="copyright-text">©Cercino 2026 BETA v.1</p>
 			</div>
 		</main>
 	{/if}
@@ -1234,55 +1259,119 @@
 		background: #F16CB3;
 	}
 
-	.profile-content {
+	.profile-page {
+		background: #000000;
+		height: 100vh;
 		padding: 1rem;
-	}
-
-	.account-section {
-		background: #2a2a2a;
-		padding: 1rem;
-		border-radius: 0;
-		margin-bottom: 1rem;
-	}
-
-	.account-section h2 {
-		color: white;
-		margin-bottom: 1rem;
-	}
-
-	.account-info input {
-		width: 100%;
-		padding: 0.75rem;
-		margin: 0.5rem 0;
-		border: none;
-		background: #3a3a3a;
-		color: white;
-		border-radius: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		overflow: hidden;
 		box-sizing: border-box;
-		outline: none;
 	}
 
-	.account-info input::placeholder {
-		color: #999;
+	.logo-section {
+		margin-bottom: 0.5rem;
+		display: flex;
+		justify-content: center;
 	}
 
-	.account-info input:focus {
-		background: #4a4a4a;
+	.main-logo {
+		width: 200px;
+		height: auto;
+		object-fit: contain;
 	}
 
-	.account-info button {
+	.settings-section {
+		width: 100%;
+		max-width: 400px;
+		margin-bottom: 0.5rem;
+	}
+
+	.settings-title {
+		color: white;
+		font-size: 1.5rem;
+		font-weight: lighter;
+		margin: 0 0 1rem 0;
+		text-align: left;
+	}
+
+	.settings-card {
+		background: #2a2a2a;
+		border-radius: 7px;
+		padding: 1rem;
+	}
+
+	.setting-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.75rem 0;
+		border-bottom: 1px solid #3a3a3a;
+	}
+
+	.setting-row:last-child {
+		border-bottom: none;
+	}
+
+	.setting-label {
+		color: white;
+		font-size: 0.9rem;
+	}
+
+	.setting-value {
+		color: white;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.change-btn {
 		background: #F16CB3;
 		color: white;
 		border: none;
-		padding: 0.75rem 1rem;
-		border-radius: 0;
+		padding: 0.5rem 1rem;
+		border-radius: 4px;
+		font-size: 0.8rem;
+		font-weight: 500;
 		cursor: pointer;
-		margin-top: 1rem;
-		transition: background 0.2s ease;
+		transition: background 0.2s;
 	}
 
-	.account-info button:hover {
-		background: #F16CB3;
+	.change-btn:hover {
+		background: #e55ba0;
+	}
+
+	.logout-section {
+		margin-bottom: 0.5rem;
+	}
+
+	.logout-btn {
+		background: transparent;
+		color: #F16CB3;
+		border: none;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: color 0.2s;
+		padding: 0.5rem 1rem;
+	}
+
+	.logout-btn:hover {
+		color: #e55ba0;
+	}
+
+	.copyright-section {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.copyright-text {
+		color: white;
+		font-size: 0.8rem;
+		text-align: center;
+		margin: 0;
+		opacity: 0.7;
 	}
 
 	.tickets-page {
@@ -1330,19 +1419,10 @@
 		padding-bottom: 1rem;
 	}
 
-	.next-ticket-info {
-		background: #1a1a1a;
-		border: 1px solid #F16CB3;
-		border-radius: 7px;
-		padding: 1rem;
-		margin: 1rem 0;
-		text-align: center;
-	}
-
 	.next-ticket-text {
-		color: white;
-		margin: 0;
-		font-size: 0.9rem;
+		color: #F16CB3;
+		font-size: 0.85rem;
+		font-weight: 500;
 	}
 
 	.next-ticket-date {
