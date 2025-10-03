@@ -7,17 +7,17 @@
 </script>
 
 <svelte:head>
-	<title>Cercino Events - Tickets</title>
+	<title>Cercino Events - Events</title>
 </svelte:head>
 
-<div class="tickets-page">
-	<h1>Tickets</h1>
-	<p>Your tickets will appear here.</p>
+<div class="events-page">
+	<h1>Events</h1>
+	<p>Browse all events here.</p>
 	<button on:click={goToApp}>Go to App</button>
 </div>
 
 <style>
-	.tickets-page {
+	.events-page {
 		padding: 2rem;
 		text-align: center;
 		color: white;
