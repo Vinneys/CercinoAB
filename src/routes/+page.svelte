@@ -9,6 +9,10 @@
 	function goToApp() {
 		goto('/app');
 	}
+	
+	function goToBusinessSignup() {
+		goto('/business-signup');
+	}
 </script>
 
 <svelte:head>
@@ -22,7 +26,7 @@
 		
 		<div class="button-group">
 			<button class="btn-secondary" type="button" on:click={goToLogin}>Party Peep</button>
-			<button class="btn-primary" type="button" on:click={goToApp}>Business</button>
+			<button class="btn-primary" type="button" on:click={goToBusinessSignup}>Business</button>
 		</div>
 	</div>
 </div>
