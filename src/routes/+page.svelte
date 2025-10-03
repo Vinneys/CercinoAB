@@ -84,8 +84,9 @@
 
 	.button-group {
 		display: flex;
+		flex-direction: row;
 		gap: 1rem;
-		flex-wrap: wrap;
+		margin-bottom: 2rem;
 	}
 
 	.btn-primary, .btn-secondary {
@@ -153,5 +154,34 @@
 			margin-bottom: 3rem;
 			max-width: 32rem;
 		}
+
+		.button-group {
+			flex-direction: row;
+			gap: 1.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.btn-primary, .btn-secondary {
+			height: 52px;
+			padding: 0 2.5rem;
+		}
+	}
+
+	/* Reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.btn-primary, .btn-secondary {
+			transition: none;
+		}
+
+		.btn-primary:hover, .btn-secondary:hover {
+			transform: none;
+		}
+	}
+
+	/* Focus management for keyboard navigation */
+	.btn-primary:focus-visible,
+	.btn-secondary:focus-visible {
+		outline: 2px solid rgba(255, 255, 255, 0.8);
+		outline-offset: 2px;
 	}
 </style>
