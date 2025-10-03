@@ -2,6 +2,10 @@
 	import LoginImage from '$lib/assets/Login.jpg';
 	import { goto } from '$app/navigation';
 	
+	function goToLogin() {
+		goto('/login');
+	}
+	
 	function goToFeed() {
 		goto('/feed');
 	}
@@ -17,7 +21,7 @@
 		<p class="subtitle">A world of unforgettable nights, unstoppable energy, and the pulse of youth culture at its peak</p>
 		
 		<div class="button-group">
-			<button class="btn-secondary" type="button" on:click={goToFeed}>Sign In</button>
+			<button class="btn-secondary" type="button" on:click={goToLogin}>Sign In</button>
 			<button class="btn-primary" type="button" on:click={goToFeed}>Join Us</button>
 		</div>
 	</div>
@@ -260,5 +264,94 @@
 	.form-group input:focus-visible {
 		outline: 2px solid rgba(255, 255, 255, 0.8);
 		outline-offset: 2px;
+	}
+
+	/* New Login Form Styles */
+	.login-container {
+		background: rgba(0, 0, 0, 0.3);
+		padding: 2rem;
+		border-radius: 12px;
+		backdrop-filter: blur(10px);
+		margin-top: 2rem;
+	}
+
+	.welcome-title {
+		font-size: 2rem;
+		font-weight: bold;
+		color: white;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.welcome-subtitle {
+		font-size: 0.9rem;
+		color: white;
+		margin: 0 0 2rem 0;
+		line-height: 1.4;
+		opacity: 0.9;
+	}
+
+	.login-form {
+		margin-bottom: 1.5rem;
+	}
+
+	.forgot-password {
+		display: block;
+		text-align: right;
+		color: white;
+		font-size: 0.8rem;
+		text-decoration: none;
+		margin-top: 0.5rem;
+		opacity: 0.8;
+	}
+
+	.forgot-password:hover {
+		opacity: 1;
+	}
+
+	.login-btn {
+		width: 100%;
+		padding: 0.75rem;
+		background: rgba(255, 255, 255, 0.9);
+		color: #000;
+		border: none;
+		border-radius: 8px;
+		font-size: 1rem;
+		font-weight: bold;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+
+	.login-btn:hover {
+		background: rgba(255, 255, 255, 1);
+	}
+
+	.signup-text {
+		text-align: center;
+		color: white;
+		font-size: 0.9rem;
+		margin: 0 0 2rem 0;
+	}
+
+	.signup-link {
+		color: white;
+		text-decoration: underline;
+		opacity: 0.8;
+	}
+
+	.signup-link:hover {
+		opacity: 1;
+	}
+
+	.beta-disclaimer {
+		text-align: center;
+		margin-top: 2rem;
+	}
+
+	.beta-disclaimer p {
+		color: white;
+		font-size: 0.75rem;
+		line-height: 1.4;
+		opacity: 0.7;
+		margin: 0;
 	}
 </style>

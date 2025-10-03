@@ -1,5 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { goto } from '$app/navigation';
 	import FeedIcon from '$lib/assets/FeedIcon.png';
 	import ProfileIcon from '$lib/assets/ProfileIcon.png';
 	import TicketIcon from '$lib/assets/TicketIcon.png';
@@ -428,6 +429,17 @@
 		}
 	}
 
+	function logout() {
+		// Reset user profile and go to login page
+		userProfile = {
+			name: '',
+			email: '',
+			phone: '',
+			tickets: []
+		};
+		goto('/login');
+	}
+
 	// Reactive statement to calculate next ticket availability when tickets change
 	$: if (userProfile.tickets) {
 		calculateNextTicketAvailability();
@@ -726,7 +738,7 @@
 				<div class="bottom-section">
 					<!-- Logout Section -->
 					<div class="logout-section">
-						<button class="logout-btn">Log out</button>
+						<button class="logout-btn" on:click={logout}>Log out</button>
 					</div>
 
 					<!-- Copyright -->
