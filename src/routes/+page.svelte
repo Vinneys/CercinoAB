@@ -6,8 +6,8 @@
 		goto('/login');
 	}
 	
-	function goToFeed() {
-		goto('/feed');
+	function goToApp() {
+		goto('/app');
 	}
 </script>
 
@@ -21,8 +21,8 @@
 		<p class="subtitle">A world of unforgettable nights, unstoppable energy, and the pulse of youth culture at its peak</p>
 		
 		<div class="button-group">
-			<button class="btn-secondary" type="button" on:click={goToLogin}>Sign In</button>
-			<button class="btn-primary" type="button" on:click={goToFeed}>Join Us</button>
+			<button class="btn-secondary" type="button" on:click={goToLogin}>Party Peep</button>
+			<button class="btn-primary" type="button" on:click={goToApp}>Business</button>
 		</div>
 	</div>
 </div>

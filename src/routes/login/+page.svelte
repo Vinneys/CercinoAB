@@ -5,8 +5,8 @@
 	let email = '';
 	let password = '';
 	
-	function goToFeed() {
-		goto('/feed');
+	function goToApp() {
+		goto('/app');
 	}
 </script>
 
@@ -21,7 +21,7 @@
 			<p class="welcome-subtitle">Today is a new day. It's your day. You shape it.</p>
 			<p class="welcome-subtitle">Sign in to start managing your projects.</p>
 			
-			<form class="login-form" on:submit|preventDefault={goToFeed}>
+			<form class="login-form" on:submit|preventDefault={goToApp}>
 				<div class="form-group">
 					<label for="email" class="form-label">Email</label>
 					<input 
@@ -50,7 +50,7 @@
 				<button type="submit" class="login-btn">Login</button>
 			</form>
 			
-			<p class="signup-text">Don't you have an account? <a href="#" class="signup-link">Sign up</a></p>
+			<p class="signup-text">Don't you have an account? <a href="/signup" class="signup-link">Sign up</a></p>
 		</div>
 	</div>
 </div>

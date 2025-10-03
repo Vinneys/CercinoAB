@@ -445,12 +445,6 @@
 	$: if (userProfile.tickets) {
 		calculateNextTicketAvailability();
 	}
-
-	function logout() {
-		// Clear any session data if needed
-		// For now, just redirect to the main page
-		goto('/');
-	}
 </script>
 
 <div class="app">
