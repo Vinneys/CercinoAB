@@ -1,5 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { goto } from '$app/navigation';
 	import FeedIcon from '$lib/assets/FeedIcon.png';
 	import ProfileIcon from '$lib/assets/ProfileIcon.png';
 	import TicketIcon from '$lib/assets/TicketIcon.png';
@@ -432,6 +433,12 @@
 	$: if (userProfile.tickets) {
 		calculateNextTicketAvailability();
 	}
+
+	function logout() {
+		// Clear any session data if needed
+		// For now, just redirect to the main page
+		goto('/');
+	}
 </script>
 
 <div class="app">
@@ -726,7 +733,7 @@
 				<div class="bottom-section">
 					<!-- Logout Section -->
 					<div class="logout-section">
-						<button class="logout-btn">Log out</button>
+						<button class="logout-btn" on:click={logout}>Log out</button>
 					</div>
 
 					<!-- Copyright -->
