@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>Cercino Events - Login</title>
+	<title>Cercino Events - STEP INTO THE CHAOS</title>
 </svelte:head>
 
 <div class="hero" style="background-image: url({LoginImage})">
@@ -138,85 +138,6 @@
 		outline-offset: 2px;
 	}
 
-	.login-form {
-		background: rgba(0, 0, 0, 0.8);
-		padding: 2rem;
-		border-radius: 12px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		backdrop-filter: blur(10px);
-		margin-top: 1rem;
-		margin-bottom: 2rem;
-	}
-
-	.form-group {
-		margin-bottom: 1.5rem;
-	}
-
-	.form-group label {
-		display: block;
-		margin-bottom: 0.5rem;
-		font-weight: 500;
-		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.form-group input {
-		width: 100%;
-		padding: 1rem;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.1);
-		color: white;
-		font-size: 1rem;
-		box-sizing: border-box;
-		transition: all 0.2s ease;
-	}
-
-	.form-group input:focus {
-		outline: none;
-		border-color: white;
-		background: rgba(255, 255, 255, 0.15);
-		box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
-	}
-
-	.form-group input[aria-invalid="true"] {
-		border-color: #F16CB3;
-	}
-
-	.btn-submit {
-		width: 100%;
-		height: 56px;
-		background: white;
-		color: black;
-		border: none;
-		border-radius: 9999px;
-		font-size: 1rem;
-		font-weight: 600;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-	}
-
-	.btn-submit:hover {
-		background: #f8f8f8;
-		transform: translateY(-1px);
-	}
-
-	.btn-submit:focus {
-		outline: 2px solid rgba(255, 255, 255, 0.5);
-		outline-offset: 2px;
-	}
-
-	.error-message {
-		color: #F16CB3;
-		font-size: 0.9rem;
-		margin-top: 0.5rem;
-		padding: 0.5rem;
-		background: rgba(255, 107, 157, 0.1);
-		border-radius: 6px;
-		border: 1px solid rgba(255, 107, 157, 0.3);
-	}
-
 	/* Desktop styles */
 	@media (min-width: 768px) {
 		.hero-content {
@@ -248,20 +169,18 @@
 
 	/* Reduced motion */
 	@media (prefers-reduced-motion: reduce) {
-		.btn-primary, .btn-secondary, .btn-submit, .form-group input {
+		.btn-primary, .btn-secondary {
 			transition: none;
 		}
 
-		.btn-primary:hover, .btn-secondary:hover, .btn-submit:hover {
+		.btn-primary:hover, .btn-secondary:hover {
 			transform: none;
 		}
 	}
 
 	/* Focus management for keyboard navigation */
 	.btn-primary:focus-visible,
-	.btn-secondary:focus-visible,
-	.btn-submit:focus-visible,
-	.form-group input:focus-visible {
+	.btn-secondary:focus-visible {
 		outline: 2px solid rgba(255, 255, 255, 0.8);
 		outline-offset: 2px;
 	}

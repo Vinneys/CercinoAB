@@ -139,6 +139,7 @@
 	let selectedFilter = 'trending'; // Track selected category filter
 	/** @type {number | null} */
 	let expandedHistoryTicket = null; // Track which history ticket is expanded
+	/** @type {string | null} */
 	let nextTicketAvailable = null; // Track when next ticket will be available
 
 	// Sample events data
@@ -427,6 +428,17 @@
 		} else {
 			nextTicketAvailable = null;
 		}
+	}
+
+	function logout() {
+		// Reset user profile and go to login page
+		userProfile = {
+			name: '',
+			email: '',
+			phone: '',
+			tickets: []
+		};
+		goto('/login');
 	}
 
 	// Reactive statement to calculate next ticket availability when tickets change
@@ -1571,45 +1583,6 @@
 		opacity: 0.8;
 	}
 
-	.ticket-navigation {
-		position: relative;
-		margin: 2rem 0;
-		padding: 1rem 0;
-	}
-
-	.nav-line {
-		position: absolute;
-		top: 50%;
-		left: 0;
-		right: 0;
-		height: 2px;
-		background: #F16CB3;
-		transform: translateY(-50%);
-		z-index: 1;
-	}
-
-	.nav-tickets {
-		display: flex;
-		justify-content: center;
-		position: relative;
-		z-index: 2;
-	}
-
-	.nav-ticket-text {
-		color: #666666;
-		font-size: 0.9rem;
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		padding: 0.5rem 0.3rem;
-		position: relative;
-	}
-
-	.nav-ticket-text.active {
-		color: white;
-		font-weight: 600;
-		padding: 0.5rem 0.3rem;
-	}
 
 	.tickets-history {
 		padding: 0;

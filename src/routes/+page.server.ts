@@ -22,8 +22,8 @@ export const actions: Actions = {
 				maxAge: 60 * 60 * 24 * 7 // 7 days
 			});
 
-			// Redirect to feed
-			throw redirect(303, '/feed');
+			// Redirect to app
+			throw redirect(303, '/app');
 		} else {
 			return fail(400, { error: 'Invalid credentials' });
 		}
