@@ -1,18 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
-import { sequence } from '@sveltejs/kit/hooks';
+import { getUserFromCookies } from '$lib/server/auth/jwt';
 
-const sessionHandle: Handle = async ({ event, resolve }) => {
-	// Read session cookie
-	const session = event.cookies.get('session');
-	
-	// Set user in locals if session exists
-	if (session) {
-		event.locals.user = { username: 'admin' };
-	} else {
-		event.locals.user = null;
-	}
-
+export const handle: Handle = async ({ event, resolve }) => {
+	event.locals.user = getUserFromCookies(event.cookies);
 	return resolve(event);
 };
-
-export const handle: Handle = sequence(sessionHandle);
