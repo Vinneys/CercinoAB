@@ -1,6 +1,7 @@
 <script>
 	import favicon from '$lib/assets/FAVICON256.png';
 	import { page } from '$app/stores';
+	import '../app.css';
 	
 	export let data;
 </script>
@@ -25,16 +26,6 @@
 </main>
 
 <style>
-	:global(body) {
-		margin: 0;
-		padding: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-		background: #000000;
-	}
-
-	:global(*) {
-		box-sizing: border-box;
-	}
 
 	.user-bar {
 		position: fixed;
