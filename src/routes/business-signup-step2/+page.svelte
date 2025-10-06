@@ -2,6 +2,7 @@
 	import LoginImage from '$lib/assets/Login.jpg';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { Button } from '$lib';
 	
 	let bankAccount = '';
 	let vatNumber = '';
@@ -89,8 +90,8 @@
 				</div>
 				
 				<div class="button-group">
-					<button type="button" class="back-btn" on:click={goBack}>Back</button>
-					<button type="submit" class="signup-btn">LET'S DO BUSINESS</button>
+					<Button type="button" variant="ghost" size="md" on:click={goBack}>Back</Button>
+					<Button type="submit" variant="primary" size="md">LET'S DO BUSINESS</Button>
 				</div>
 			</form>
 		</div>
@@ -274,46 +275,7 @@
 		margin-top: 1rem;
 	}
 
-	.back-btn {
-		flex: 1;
-		padding: 1rem;
-		background: transparent;
-		color: white;
-		border: 2px solid #555555;
-		border-radius: 8px;
-		font-size: 1rem;
-		font-weight: bold;
-		cursor: pointer;
-		transition: all 0.2s;
-	}
-
-	.back-btn:hover {
-		background: #333333;
-		border-color: #777777;
-	}
-
-	.signup-btn {
-		flex: 2;
-		padding: 1rem;
-		background: #F16CB3;
-		color: white;
-		border: none;
-		border-radius: 8px;
-		font-size: 1rem;
-		font-weight: bold;
-		text-transform: uppercase;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.signup-btn:hover {
-		background: #e55ba0;
-	}
-
-	.signup-btn:disabled {
-		background: #666666;
-		cursor: not-allowed;
-	}
+	/* button styles replaced by reusable Button component */
 
 	@media (max-width: 768px) {
 		.hero {

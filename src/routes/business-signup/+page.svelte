@@ -1,6 +1,7 @@
 <script>
 	import LoginImage from '$lib/assets/Login.jpg';
 	import { goto } from '$app/navigation';
+	import { Button } from '$lib';
 	
 	let email = '';
 	let password = '';
@@ -51,7 +52,7 @@
 					<a href="#" class="forgot-password">Forgot Password?</a>
 				</div>
 				
-				<button type="submit" class="login-btn">Login</button>
+				<Button type="submit" variant="secondary" size="md" fullWidth>Login</Button>
 			</form>
 			
 			<p class="signup-text">Don't you have an account? <a href="/business-signup-form" class="signup-link">Sign up</a></p>
@@ -169,22 +170,7 @@
 		opacity: 1;
 	}
 
-	.login-btn {
-		width: 100%;
-		padding: 0.75rem;
-		background: rgba(255, 255, 255, 0.9);
-		color: #000;
-		border: none;
-		border-radius: 8px;
-		font-size: 1rem;
-		font-weight: bold;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.login-btn:hover {
-		background: rgba(255, 255, 255, 1);
-	}
+	/* button styles replaced by reusable Button component */
 
 	.signup-text {
 		text-align: center;
