@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import BottomNav from '$lib/components/BottomNav.svelte';
+	let currentPage = 'profile';
 	
 	let userProfile = {
 		name: 'Alexandra Svensson',
@@ -31,6 +32,22 @@
 	function changePhone() {
 		// Demo - just show alert
 		alert('Change Phone functionality would go here');
+	}
+
+	/** @param {'main'|'tickets'|'profile'} page */
+	function handleNavigate(page) {
+		currentPage = page;
+		switch (page) {
+			case 'main':
+				goto('/app');
+				break;
+			case 'tickets':
+				goto('/tickets');
+				break;
+			case 'profile':
+				goto('/business-profile');
+				break;
+		}
 	}
 </script>
 
@@ -111,7 +128,7 @@
 	</div>
 	
 	<!-- Bottom Navigation -->
-	<BottomNav currentPage="profile" userType="business" />
+	<BottomNav {currentPage} onNavigate={handleNavigate} />
 </div>
 
 <style>

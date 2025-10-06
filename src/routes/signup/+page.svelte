@@ -16,6 +16,7 @@
 		goto('/app');
 	}
 	
+	/** @param {string} age */
 	function selectAge(age) {
 		selectedAge = age;
 	}
