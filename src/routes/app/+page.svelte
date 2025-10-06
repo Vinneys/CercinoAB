@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
-    import BottomNav from '$lib/components/BottomNav.svelte';
+	import BottomNav from '$lib/components/BottomNav.svelte';
 	import SearchIcon from '$lib/assets/SearchIcon.svg';
 	import QrDemo from '$lib/assets/QrDemo.png';
 	import CercinoMainLogo from '$lib/assets/CercinoMainLogo.png';
@@ -750,7 +750,7 @@
 	{/if}
 
 	<!-- Bottom Navigation -->
-    <BottomNav {currentPage} onNavigate={goToPage} />
+	<BottomNav {currentPage} onNavigate={goToPage} />
 </div>
 
 <style>
@@ -1683,7 +1683,6 @@
 	}
 
     /* bottom-nav styles moved into reusable component */
-
 	/* Responsive Design */
 	@media (min-width: 768px) {
 		.app {

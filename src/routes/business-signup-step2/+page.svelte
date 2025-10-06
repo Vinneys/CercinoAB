@@ -17,9 +17,9 @@
 		}
 	});
 	
-	function goToApp() {
-		// Demo - no data saving, just navigate to app
-		goto('/app');
+	function goToBusinessProfile() {
+		// Demo - no data saving, just navigate to business profile
+		goto('/business-profile');
 	}
 	
 	function goBack() {
@@ -38,7 +38,7 @@
 			<h1 class="signup-title">Almost there</h1>
 			<p class="signup-subtitle">Complete your business registration with financial details and documentation.</p>
 			
-			<form class="signup-form" on:submit|preventDefault={goToApp}>
+			<form class="signup-form" on:submit|preventDefault={goToBusinessProfile}>
 				<div class="form-group">
 					<label for="bankAccount" class="form-label">Bank account</label>
 					<input 
