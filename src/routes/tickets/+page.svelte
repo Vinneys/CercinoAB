@@ -6,7 +6,14 @@
 
   async function load() {
     const out = await fetch('/api/tickets').then(r=>r.json());
-    items = out.items ?? [];
+    const raw = out.items ?? [];
+    // Precompute QR data URLs (no await in markup)
+    items = await Promise.all(
+      raw.map(async (t: any) => ({
+        ...t,
+        qrDataUrl: await QRCode.toDataURL(JSON.stringify({ qr: t.qrDataKey }))
+      }))
+    );
     loading = false;
   }
   onMount(load);
@@ -15,9 +22,7 @@
     const q = encodeURIComponent([ev?.venueAddress, ev?.city, ev?.country].filter(Boolean).join(', '));
     return `https://maps.google.com/?q=${q}`;
   }
-  async function toDataURL(text: string) {
-    return await QRCode.toDataURL(text);
-  }
+  // QR already computed in load()
 </script>
 
 <h1>My Tickets</h1>
@@ -30,7 +35,7 @@
       <div><a target="_blank" rel="noopener" href={mapsUrl(t.event)}>Open in Google Maps</a></div>
     {/if}
     <div>Serial: {t.serial}</div>
-    <img alt="QR" src={await toDataURL(JSON.stringify({ qr:t.qrDataKey }))} style="width:160px;height:160px;" />
+    <img alt="QR" src={t.qrDataUrl} style="width:160px;height:160px;" />
   </article>
 {/each}
 
