@@ -884,6 +884,7 @@
 	.trending {
 		padding: 0.5rem 1rem;
 		margin-top: 5rem;
+		padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 2rem);
 	}
 
 	.trending h2 {
