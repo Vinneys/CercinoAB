@@ -761,7 +761,6 @@
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 		display: flex;
 		flex-direction: column;
-		padding-bottom: 100px; /* Increased to ensure content doesn't hide behind nav */
 		touch-action: manipulation;
 	}
 
@@ -1004,7 +1003,7 @@
 
 	.event-hero {
 		width: 100%;
-		height: 40vh;
+		height: 25vh;
 		overflow: hidden;
 	}
 
