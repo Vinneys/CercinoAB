@@ -38,6 +38,8 @@
         border-top: 1px solid #333333;
         display: flex;
         padding: 0.75rem 0;
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+        padding-bottom: max(0.75rem, constant(safe-area-inset-bottom));
         z-index: 1000;
         height: 80px;
         box-sizing: border-box;

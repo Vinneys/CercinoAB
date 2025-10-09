@@ -65,7 +65,9 @@
 		background: #F16CB3;
 	}
 
-	main {
-		min-height: 100vh;
-	}
+    main {
+        /* Fill viewport minus navbar height and safe area so we don't force vertical scroll by default */
+        min-height: calc(100vh - var(--nav-h) - env(safe-area-inset-bottom));
+        min-height: calc(100vh - var(--nav-h) - constant(safe-area-inset-bottom));
+    }
 </style>

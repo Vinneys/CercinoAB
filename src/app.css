@@ -1,3 +1,7 @@
+:root {
+  --nav-h: 80px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -7,4 +11,28 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* Main content padding to prevent overlap with fixed navbar */
+.main-scroll-container,
+.page {
+  padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom));
+  padding-bottom: calc(var(--nav-h) + constant(safe-area-inset-bottom));
+}
+
+/* Prevent horizontal scrolling across the app */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Ensure full-height layout without introducing extra scroll */
+html, body {
+  height: 100%;
+}
+
+/* Ensure media doesn't overflow the viewport */
+img, video, canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
