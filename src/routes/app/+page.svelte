@@ -139,6 +139,7 @@
 	let expandedHistoryTicket = null; // Track which history ticket is expanded
 	/** @type {string | null} */
 	let nextTicketAvailable = null; // Track when next ticket will be available
+	let showPaymentOverlay = false; // Track payment overlay visibility
 
 	// Sample events data
 	const events = [
@@ -339,7 +340,12 @@
 	/** @param {any} event */
 	function addToCart(event, quantity = 1) {
 		cart.push({ event, quantity });
-		currentPage = 'checkout';
+		showPaymentOverlay = true;
+	}
+
+	function closePaymentOverlay() {
+		showPaymentOverlay = false;
+		cart = [];
 	}
 
 	function completePurchase() {
@@ -359,6 +365,7 @@
 			});
 		});
 		cart = [];
+		showPaymentOverlay = false;
 		currentPage = 'profile';
 		
 		// Calculate when next ticket will be available
@@ -529,52 +536,103 @@
 				</div>
 				<button class="buy-ticket-btn" on:click={() => addToCart(selectedEvent, quantity)}>Buy Ticket</button>
 			</div>
+
+			<!-- Payment Overlay -->
+			{#if showPaymentOverlay}
+				<div class="payment-overlay" on:click={closePaymentOverlay}>
+					<div class="payment-modal" on:click|stopPropagation>
+						<div class="payment-header">
+							<h2>Complete Purchase</h2>
+							<button class="close-btn" on:click={closePaymentOverlay}>×</button>
+						</div>
+						
+						{#each cart as item}
+							<div class="payment-content">
+								<div class="amount-breakdown">
+									<div class="amount-line">
+										<span>Amount</span>
+										<span>{item.event.price * item.quantity} kr</span>
+									</div>
+									<div class="amount-line">
+										<span>Tax</span>
+										<span>0 kr</span>
+									</div>
+									<div class="amount-line total-line">
+										<span>Total</span>
+										<span>{item.event.price * item.quantity} kr</span>
+									</div>
+								</div>
+								
+								<div class="swish-section">
+									<label class="swish-label">Swish nummer</label>
+									<input type="tel" placeholder="+46 73 555 23" class="swish-input" />
+								</div>
+								
+								<button on:click={completePurchase} class="swish-btn">
+									SWISH
+								</button>
+							</div>
+						{/each}
+					</div>
+				</div>
+			{/if}
 		</main>
 
 	{:else if currentPage === 'checkout'}
 		<!-- Checkout Page -->
 		<main class="checkout-page">
-			<header class="page-header">
-				<button on:click={() => goToPage('main')}>← Back</button>
+			<div class="checkout-header">
+				<button class="back-btn" on:click={() => goToPage('main')}>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M19 12H5M12 19l-7-7 7-7"/>
+					</svg>
+				</button>
 				<h1>Checkout</h1>
-			</header>
+			</div>
 
 			<div class="checkout-content">
-				<div class="cart-items">
-					<h2>Your Order</h2>
-					{#each cart as item}
-						<div class="cart-item">
-							<img src={item.event.image} alt={item.event.title} />
-							<div class="item-info">
-								<h3>{item.event.title}</h3>
-								<p>{item.event.city} • {item.event.date}</p>
-								<p>Quantity: {item.quantity}</p>
-								<p>Price: {item.event.price * item.quantity} kr</p>
+				{#each cart as item}
+					<div class="event-hero">
+						<img src={item.event.image} alt={item.event.title} class="event-hero-image" />
+					</div>
+					
+					<div class="event-details">
+						<h1 class="event-title">{item.event.title}</h1>
+						<p class="event-description">{item.event.description}</p>
+						
+						<h2 class="section-title">{item.event.title}</h2>
+						<p class="section-content">{item.event.description}</p>
+						
+						<h2 class="section-title">Rules</h2>
+						<p class="section-content">{item.event.description}</p>
+					</div>
+					
+					<div class="payment-summary">
+						<div class="amount-breakdown">
+							<div class="amount-line">
+								<span>Amount</span>
+								<span>{item.event.price * item.quantity} kr</span>
+							</div>
+							<div class="amount-line">
+								<span>Tax</span>
+								<span>0 kr</span>
+							</div>
+							<div class="amount-line total-line">
+								<span>Total</span>
+								<span>{item.event.price * item.quantity} kr</span>
 							</div>
 						</div>
-					{/each}
-				</div>
-
-				<div class="payment-section">
-					<h2>Payment</h2>
-					<div class="payment-methods">
-						<button class="payment-btn active">Swish</button>
-						<button class="payment-btn">Card</button>
-						<button class="payment-btn">Bank Transfer</button>
+						
+						<div class="swish-section">
+							<label class="swish-label">Swish nummer</label>
+							<input type="tel" placeholder="+46 73 555 23" class="swish-input" />
+						</div>
+						
+						<button on:click={completePurchase} class="swish-btn">
+							SWISH
+						</button>
 					</div>
-
-					<div class="user-info">
-						<h3>Your Information</h3>
-						<input type="text" placeholder="Name" bind:value={userProfile.name} />
-						<input type="email" placeholder="Email" bind:value={userProfile.email} />
-						<input type="tel" placeholder="Phone" bind:value={userProfile.phone} />
-					</div>
-
-					<div class="total">
-						<h3>Total: {cart.reduce((sum, item) => sum + (item.event.price * item.quantity), 0)} kr</h3>
-						<button on:click={completePurchase} class="purchase-btn">Complete Purchase</button>
-					</div>
-				</div>
+				{/each}
 			</div>
 		</main>
 
@@ -1148,118 +1206,260 @@
 
 
 
-	.checkout-content {
-		padding: 1rem;
+	/* Checkout Page Styles */
+	.checkout-page {
+		background: #000000;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
 	}
 
-	.cart-item {
+	.checkout-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		background: #000000;
+		border-bottom: 1px solid transparent;
+		padding: 1rem;
 		display: flex;
+		align-items: center;
 		gap: 1rem;
-		padding: 1rem;
-		background: #2a2a2a;
-		border-radius: 0;
-		margin-bottom: 1rem;
+		z-index: 1000;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 	}
 
-	.cart-item img {
-		width: 80px;
-		height: 80px;
-		object-fit: cover;
-		border-radius: 0;
-	}
-
-	.cart-item h3 {
-		color: white;
-		margin: 0 0 0.5rem 0;
-	}
-
-	.cart-item p {
-		color: #ccc;
-		margin: 0.25rem 0;
-	}
-
-	.payment-section {
-		background: #2a2a2a;
-		padding: 1rem;
-		border-radius: 0;
-		margin-top: 1rem;
-	}
-
-	.payment-section h2 {
-		color: white;
-		margin-bottom: 1rem;
-	}
-
-	.payment-methods {
-		display: flex;
-		gap: 0.5rem;
-		margin: 1rem 0;
-	}
-
-	.payment-btn {
-		flex: 1;
-		padding: 0.75rem;
+	.back-btn {
+		background: none;
 		border: none;
-		background: #3a3a3a;
 		color: white;
-		border-radius: 0;
+		cursor: pointer;
+		padding: 0.5rem;
+		border-radius: 7px;
+		transition: background 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.back-btn:hover {
+		background: transparent;
+	}
+
+	.checkout-header h1 {
+		color: white;
+		font-size: 1.5rem;
+		font-weight: bold;
+		margin: 0;
+	}
+
+	.checkout-content {
+		padding: 0;
+		margin-top: 5rem;
+		display: flex;
+		flex-direction: column;
+		height: calc(100vh - 5rem - var(--nav-h) - env(safe-area-inset-bottom));
+		overflow: hidden;
+	}
+
+	.event-hero {
+		width: 100%;
+		height: 30vh;
+		overflow: hidden;
+	}
+
+	.event-hero-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.event-details {
+		flex: 1;
+		padding: 2rem 1rem;
+		background: #000000;
+		color: white;
+		overflow-y: auto;
+	}
+
+	.event-details .event-title {
+		font-size: 1.6rem;
+		font-weight: bold;
+		margin: 0 0 1rem 0;
+		color: white;
+	}
+
+	.event-details .event-description {
+		font-size: 0.9rem;
+		line-height: 1.5;
+		margin: 0 0 2rem 0;
+		color: white;
+	}
+
+	.section-title {
+		font-size: 1.2rem;
+		font-weight: bold;
+		margin: 2rem 0 1rem 0;
+		color: white;
+	}
+
+	.section-content {
+		font-size: 0.9rem;
+		line-height: 1.5;
+		margin: 0 0 1rem 0;
+		color: white;
+	}
+
+	.payment-summary {
+		background: #000000;
+		padding: 1rem;
+		border-top: 1px solid transparent;
+	}
+
+	.amount-breakdown {
+		margin-bottom: 1.5rem;
+	}
+
+	.amount-line {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem 0;
+		color: white;
+	}
+
+	.amount-line.total-line {
+		font-weight: bold;
+		font-size: 1.1rem;
+	}
+
+	.swish-section {
+		margin-bottom: 1.5rem;
+	}
+
+	.swish-label {
+		display: block;
+		color: white;
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.swish-input {
+		width: 100%;
+		padding: 0.75rem;
+		border: 1px solid transparent;
+		background: #2a2a2a;
+		color: white;
+		border-radius: 7px;
+		box-sizing: border-box;
+		outline: none;
+		font-size: 1rem;
+		transition: all 0.2s ease;
+	}
+
+	.swish-input::placeholder {
+		color: #999999;
+	}
+
+	.swish-input:focus {
+		background: transparent;
+		border-color: #F16CB3;
+	}
+
+	.swish-btn {
+		width: 100%;
+		background: #F16CB3;
+		color: white;
+		border: none;
+		padding: 1rem;
+		border-radius: 7px;
+		font-size: 1.1rem;
+		font-weight: bold;
+		text-transform: uppercase;
 		cursor: pointer;
 		transition: all 0.2s ease;
 	}
 
-	.payment-btn:hover {
-		background: #4a4a4a;
+	.swish-btn:hover {
+		background: #ff8bb3;
+		transform: translateY(-1px);
 	}
 
-	.payment-btn.active {
-		background: #F16CB3;
-		color: white;
+	/* Payment Overlay Styles */
+	.payment-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		z-index: 2000;
+		animation: fadeIn 0.3s ease-out;
 	}
 
-	.user-info {
-		margin: 1rem 0;
-	}
-
-	.user-info h3 {
-		color: white;
-		margin-bottom: 1rem;
-	}
-
-	.user-info input {
+	.payment-modal {
+		background: #1C1C1C;
+		border-radius: 7px 7px 0 0;
 		width: 100%;
-		padding: 0.75rem;
-		margin: 0.5rem 0;
-		border: none;
-		background: #3a3a3a;
-		color: white;
-		border-radius: 0;
-		box-sizing: border-box;
-		outline: none;
+		max-height: 60vh;
+		overflow-y: auto;
+		animation: slideUp 0.3s ease-out;
+		border: 1px solid transparent;
+		margin-top: auto;
 	}
 
-	.user-info input::placeholder {
-		color: #999;
-	}
-
-	.user-info input:focus {
-		background: #4a4a4a;
-	}
-
-	.purchase-btn {
-		width: 100%;
-		background: #F16CB3;
-		color: white;
-		border: none;
+	.payment-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		padding: 1rem;
-		border-radius: 0;
-		font-size: 1.1rem;
-		cursor: pointer;
-		margin-top: 1rem;
-		transition: background 0.2s ease;
+		border-bottom: 1px solid transparent;
 	}
 
-	.purchase-btn:hover {
-		background: #F16CB3;
+	.payment-header h2 {
+		color: white;
+		font-size: 1.3rem;
+		font-weight: bold;
+		margin: 0;
+	}
+
+	.close-btn {
+		background: none;
+		border: none;
+		color: white;
+		font-size: 1.5rem;
+		cursor: pointer;
+		padding: 0.25rem;
+		line-height: 1;
+		transition: color 0.2s ease;
+	}
+
+	.close-btn:hover {
+		color: #F16CB3;
+	}
+
+	.payment-content {
+		padding: 1rem;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@keyframes slideUp {
+		from { 
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to { 
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.profile-page {
