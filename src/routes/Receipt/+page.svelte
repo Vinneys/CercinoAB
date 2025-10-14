@@ -2,13 +2,13 @@
 	import ReciptImg from '$lib/assets/ReciptImg.png';
 </script>
 
-<div class="receipt-page">
-	<div class="image-container">
+<div class="receipt-page desktop-container">
+	<div class="image-container desktop-hero">
 		<img src={ReciptImg} alt="Travis Scott performing on stage with pyrotechnics" class="event-image" />
 	</div>
 
-	<div class="content-container">
-		<h1 class="main-heading">LET'S F<span class="asterisk">*</span>CKING <span class="pink-text">PARTY</span></h1>
+	<div class="content-container desktop-form">
+		<h1 class="main-heading desktop-title">LET'S F<span class="asterisk">*</span>CKING <span class="pink-text">PARTY</span></h1>
 
 		<div class="receipt-section">
 			<h2 class="section-title">Receipt</h2>
@@ -179,5 +179,120 @@
 	.tickets-button:hover {
 		background-color: #ff8bb3;
 		transform: translateY(-1px);
+	}
+
+	/* Desktop Responsive Styles */
+	@media (min-width: 768px) {
+		.receipt-page {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 2rem;
+		}
+
+		.image-container {
+			height: 50vh;
+			border-radius: 15px;
+			overflow: hidden;
+			margin-bottom: 2rem;
+		}
+
+		.content-container {
+			padding: 2rem 0;
+		}
+
+		.main-heading {
+			font-size: 3rem;
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+
+		.receipt-section {
+			gap: 1rem;
+			margin-top: 1rem;
+		}
+
+		.receipt-line {
+			font-size: 1rem;
+			padding: 0.5rem 0;
+		}
+
+		.tickets-button {
+			padding: 1.25rem;
+			font-size: 1.2rem;
+			border-radius: 10px;
+			margin-top: 2rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.receipt-page {
+			max-width: 900px;
+			padding: 0 3rem;
+		}
+
+		.image-container {
+			height: 60vh;
+		}
+
+		.content-container {
+			padding: 3rem 0;
+		}
+
+		.main-heading {
+			font-size: 3.5rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.receipt-section {
+			gap: 1.25rem;
+			margin-top: 1.5rem;
+		}
+
+		.receipt-line {
+			font-size: 1.1rem;
+			padding: 0.75rem 0;
+		}
+
+		.tickets-button {
+			padding: 1.5rem;
+			font-size: 1.3rem;
+			margin-top: 2.5rem;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.receipt-page {
+			max-width: 1000px;
+			padding: 0 4rem;
+		}
+
+		.image-container {
+			height: 70vh;
+		}
+
+		.content-container {
+			padding: 4rem 0;
+		}
+
+		.main-heading {
+			font-size: 4rem;
+			margin-bottom: 3rem;
+		}
+
+		.receipt-section {
+			gap: 1.5rem;
+			margin-top: 2rem;
+		}
+
+		.receipt-line {
+			font-size: 1.2rem;
+			padding: 1rem 0;
+		}
+
+		.tickets-button {
+			padding: 1.75rem;
+			font-size: 1.4rem;
+			margin-top: 3rem;
+		}
 	}
 </style>

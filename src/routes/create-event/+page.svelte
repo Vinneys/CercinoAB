@@ -8,16 +8,16 @@
 	let ticketPrice = '';
 </script>
 
-<div class="create-event-page">
+<div class="create-event-page desktop-container">
 	<!-- Hero Image -->
-	<div class="event-hero">
+	<div class="event-hero desktop-hero">
 		<img src={ReciptImg} alt="Travis Scott performing on stage with pyrotechnics" class="event-hero-image" />
 	</div>
 
 	<!-- Form Content -->
-	<div class="form-container">
-		<h1 class="main-title">Create Event</h1>
-		<p class="subtitle">You have to follow our rules in order to create the perfect experience.</p>
+	<div class="form-container desktop-form">
+		<h1 class="main-title desktop-title">Create Event</h1>
+		<p class="subtitle desktop-subtitle">You have to follow our rules in order to create the perfect experience.</p>
 
         <div class="form-section">
             <div class="input-group">
@@ -306,5 +306,217 @@
 .continue-btn:hover {
 		background: #ff8bb3;
 		transform: translateY(-1px);
+}
+
+/* Desktop Responsive Styles */
+@media (min-width: 768px) {
+	.create-event-page {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.event-hero {
+		height: 35vh;
+		border-radius: 15px;
+		overflow: hidden;
+		margin-bottom: 2rem;
+	}
+
+	.form-container {
+		padding: 2rem 0;
+	}
+
+	.main-title {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 1rem;
+		background: linear-gradient(45deg, #F16CB3, #ffffff);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.subtitle {
+		font-size: 1.1rem;
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.form-section {
+		gap: 1.5rem;
+	}
+
+	.input-label {
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+
+	.text-input {
+		padding: 1rem 1.5rem;
+		font-size: 1rem;
+		border-radius: 10px;
+	}
+
+	.textarea {
+		min-height: 15vh;
+	}
+
+	.upload-bar {
+		padding: 1rem 1.5rem;
+		border-radius: 10px;
+	}
+
+	.insert-file-btn {
+		padding: 0.75rem 1.5rem;
+		font-size: 1rem;
+		border-radius: 8px;
+	}
+
+	.checkbox-group {
+		margin-top: 1rem;
+	}
+
+	.checkbox-input {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.checkbox-label {
+		font-size: 1.1rem;
+	}
+
+	.create-event-btn {
+		padding: 1.25rem;
+		font-size: 1.2rem;
+		border-radius: 10px;
+		margin-top: 2rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.create-event-page {
+		max-width: 900px;
+		padding: 0 3rem;
+	}
+
+	.event-hero {
+		height: 40vh;
+	}
+
+	.form-container {
+		padding: 3rem 0;
+	}
+
+	.main-title {
+		font-size: 3rem;
+	}
+
+	.subtitle {
+		font-size: 1.2rem;
+	}
+
+	.form-section {
+		gap: 2rem;
+	}
+
+	.input-label {
+		font-size: 1.2rem;
+	}
+
+	.text-input {
+		padding: 1.25rem 2rem;
+		font-size: 1.1rem;
+	}
+
+	.textarea {
+		min-height: 18vh;
+	}
+
+	.upload-bar {
+		padding: 1.25rem 2rem;
+	}
+
+	.insert-file-btn {
+		padding: 1rem 2rem;
+		font-size: 1.1rem;
+	}
+
+	.checkbox-input {
+		width: 1.75rem;
+		height: 1.75rem;
+	}
+
+	.checkbox-label {
+		font-size: 1.2rem;
+	}
+
+	.create-event-btn {
+		padding: 1.5rem;
+		font-size: 1.3rem;
+	}
+}
+
+@media (min-width: 1440px) {
+	.create-event-page {
+		max-width: 1000px;
+		padding: 0 4rem;
+	}
+
+	.event-hero {
+		height: 45vh;
+	}
+
+	.form-container {
+		padding: 4rem 0;
+	}
+
+	.main-title {
+		font-size: 3.5rem;
+	}
+
+	.subtitle {
+		font-size: 1.3rem;
+	}
+
+	.form-section {
+		gap: 2.5rem;
+	}
+
+	.input-label {
+		font-size: 1.3rem;
+	}
+
+	.text-input {
+		padding: 1.5rem 2.5rem;
+		font-size: 1.2rem;
+	}
+
+	.textarea {
+		min-height: 20vh;
+	}
+
+	.upload-bar {
+		padding: 1.5rem 2.5rem;
+	}
+
+	.insert-file-btn {
+		padding: 1.25rem 2.5rem;
+		font-size: 1.2rem;
+	}
+
+	.checkbox-input {
+		width: 2rem;
+		height: 2rem;
+	}
+
+	.checkbox-label {
+		font-size: 1.3rem;
+	}
+
+	.create-event-btn {
+		padding: 1.75rem;
+		font-size: 1.4rem;
+	}
 }
 </style>

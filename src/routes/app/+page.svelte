@@ -503,14 +503,14 @@
 
 	{:else if currentPage === 'event' && selectedEvent}
 		<!-- Event Page -->
-		<main class="event-page">
-			<div class="event-hero">
+		<main class="event-page desktop-container">
+			<div class="event-hero desktop-hero">
 				<img src={selectedEvent.image} alt={selectedEvent.title} class="event-hero-image" />
 			</div>
 			
-			<div class="event-content">
-				<h1 class="event-title">{selectedEvent.title}</h1>
-				<p class="event-description">{selectedEvent.description}</p>
+			<div class="event-content desktop-form">
+				<h1 class="event-title desktop-title">{selectedEvent.title}</h1>
+				<p class="event-description desktop-subtitle">{selectedEvent.description}</p>
 				
 				<h2 class="section-title">{selectedEvent.title}</h2>
 				<p class="section-content">{selectedEvent.description}</p>
@@ -1933,6 +1933,423 @@
 		.event-card img {
 			height: 200px;
 		}
+	}
 
+	/* Desktop Responsive Styles */
+	@media (min-width: 768px) {
+		.app {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 2rem;
+		}
+
+		.main-page {
+			padding: 0;
+		}
+
+		.search-categories-section {
+			position: fixed !important;
+			top: 0 !important;
+			left: 0 !important;
+			right: 0 !important;
+			padding: 0.5rem 0 !important;
+			background: #000000 !important;
+			border-bottom: 1px solid #333333 !important;
+			max-width: none !important;
+			transform: none !important;
+			z-index: 1000 !important;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+		}
+
+		.search-bar {
+			max-width: 400px !important;
+			margin: 0 auto 0.5rem auto !important;
+			position: relative !important;
+			display: flex !important;
+			align-items: center !important;
+			background: #1C1C1C !important;
+			border: 1px solid #333333 !important;
+			border-radius: 4px !important;
+			height: 1.75rem !important;
+			padding: 0 0.5rem !important;
+			gap: 0.375rem !important;
+			transition: all 0.2s ease !important;
+		}
+
+		.search-bar:hover {
+			border-color: #555555 !important;
+		}
+
+		.search-bar:focus-within {
+			border-color: #F16CB3 !important;
+			box-shadow: 0 0 0 2px rgba(241, 108, 179, 0.15) !important;
+		}
+
+		.search-bar input {
+			font-size: 0.8rem !important;
+			padding: 0 !important;
+			border-radius: 0 !important;
+			width: 100% !important;
+			background: transparent !important;
+			border: none !important;
+			color: white !important;
+			height: 100% !important;
+			outline: none !important;
+			box-sizing: border-box !important;
+		}
+
+		.search-bar input:focus {
+			border: none !important;
+			outline: none !important;
+		}
+
+		.search-bar input::placeholder {
+			color: rgba(255, 255, 255, 0.5) !important;
+		}
+
+		.search-icon {
+			position: static !important;
+			right: auto !important;
+			top: auto !important;
+			transform: none !important;
+			width: 12px !important;
+			height: 12px !important;
+			filter: brightness(0) saturate(100%) invert(60%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%) !important;
+			flex-shrink: 0 !important;
+		}
+
+		.category-filters {
+			gap: 0.375rem !important;
+			justify-content: center !important;
+			flex-wrap: wrap !important;
+			max-width: 500px !important;
+			margin: 0 auto !important;
+		}
+
+		.category-filters button {
+			padding: 0.375rem 0.75rem !important;
+			font-size: 0.75rem !important;
+			border-radius: 3px !important;
+			transition: all 0.2s ease !important;
+			background: #1C1C1C !important;
+			border: 1px solid #333333 !important;
+			color: white !important;
+			font-weight: 500 !important;
+		}
+
+		.category-filters button:hover {
+			background: #2A2A2A !important;
+			border-color: #555555 !important;
+		}
+
+		.category-filters button.active {
+			background: #F16CB3 !important;
+			border-color: #F16CB3 !important;
+			color: white !important;
+		}
+
+		.trending {
+			padding: 2rem 0;
+			margin-top: 5rem;
+		}
+
+		.trending h2 {
+			font-size: 2rem;
+			text-align: center;
+			margin-bottom: 2rem;
+			color: white;
+		}
+
+		.events-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 1.5rem;
+			max-width: 1000px;
+			margin: 0 auto;
+			padding: 0 1rem;
+		}
+
+		.event-card {
+			border-radius: 8px;
+			overflow: hidden;
+			transition: all 0.2s ease;
+			background: #1C1C1C;
+			border: 1px solid #333333;
+		}
+
+		.event-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+		}
+
+		.event-image {
+			height: 180px;
+		}
+
+		.event-overlay {
+			padding: 1rem;
+		}
+
+		.event-title {
+			font-size: 1rem;
+			font-weight: 600;
+			color: white;
+		}
+
+		.event-page {
+			max-width: 1000px;
+			margin: 0 auto;
+			padding: 0 2rem;
+		}
+
+		.event-hero {
+			height: 50vh;
+			border-radius: 15px;
+			overflow: hidden;
+			margin-bottom: 2rem;
+		}
+
+		.event-content {
+			padding: 2rem 0;
+		}
+
+		.event-content h1 {
+			font-size: 2.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.event-content p {
+			font-size: 1.1rem;
+			line-height: 1.6;
+		}
+
+		.ticket-purchase-bar {
+			padding: 2rem;
+			border-radius: 15px;
+			background: rgba(28, 28, 28, 0.8);
+			backdrop-filter: blur(10px);
+		}
+
+		.profile-page {
+			max-width: 1000px;
+			margin: 0 auto;
+			padding: 0 2rem;
+		}
+
+		.profile-header {
+			padding: 3rem 0;
+			text-align: center;
+		}
+
+		.profile-header h1 {
+			font-size: 2.5rem;
+		}
+
+		.tickets-section {
+			padding: 0;
+		}
+
+		.ticket-card {
+			border-radius: 15px;
+			margin-bottom: 2rem;
+		}
+
+		.payment-modal {
+			max-width: 500px;
+			border-radius: 15px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.app {
+			max-width: 1400px;
+			padding: 0 3rem;
+		}
+
+		.search-categories-section {
+			padding: 0.625rem 0 !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: space-between !important;
+			gap: 1rem !important;
+		}
+
+		.search-bar {
+			max-width: 450px !important;
+			height: 2rem !important;
+			margin: 0 !important;
+			flex: 0 0 450px !important;
+		}
+
+		.search-bar input {
+			font-size: 0.85rem !important;
+		}
+
+		.search-icon {
+			width: 13px !important;
+			height: 13px !important;
+		}
+
+		/* Right side: categories */
+		.categories {
+			flex: 1 1 auto !important;
+		}
+
+		.category-filters button {
+			padding: 0.45rem 0.85rem !important;
+			font-size: 0.8rem !important;
+		}
+
+		.category-filters {
+			gap: 0.45rem !important;
+			max-width: none !important;
+			margin: 0 !important;
+			justify-content: flex-end !important;
+			flex-wrap: nowrap !important;
+			overflow: visible !important;
+		}
+
+		.category-filters button {
+			padding: 1rem 2rem;
+			font-size: 1.1rem;
+		}
+
+		.trending {
+			padding: 2.5rem 0;
+			margin-top: 6rem;
+		}
+
+		.trending h2 {
+			font-size: 2.2rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.events-grid {
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 2rem;
+			max-width: 1200px;
+		}
+
+		.event-image {
+			height: 200px;
+		}
+
+		.event-overlay {
+			padding: 1.25rem;
+		}
+
+		.event-title {
+			font-size: 1.1rem;
+		}
+
+		.event-page {
+			max-width: 1200px;
+			padding: 0 3rem;
+		}
+
+		.event-hero {
+			height: 60vh;
+			border-radius: 15px;
+			overflow: hidden;
+			margin-bottom: 2rem;
+		}
+
+		.event-content {
+			padding: 2rem 0;
+		}
+
+		.event-content h1 {
+			font-size: 3rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.event-content p {
+			font-size: 1.2rem;
+			line-height: 1.6;
+		}
+
+		.ticket-purchase-bar {
+			padding: 2.5rem;
+			border-radius: 15px;
+			background: rgba(28, 28, 28, 0.8);
+			backdrop-filter: blur(10px);
+		}
+
+		.profile-page {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 3rem;
+		}
+
+		.profile-header {
+			padding: 3rem 0;
+			text-align: center;
+		}
+
+		.profile-header h1 {
+			font-size: 3rem;
+		}
+
+		.tickets-section {
+			padding: 0;
+		}
+
+		.ticket-card {
+			border-radius: 15px;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.app {
+			max-width: 1600px;
+			padding: 0 4rem;
+		}
+
+		.search-categories-section {
+			padding: 0.75rem 0 !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: space-between !important;
+			gap: 1.25rem !important;
+		}
+
+		.search-bar {
+			max-width: 500px !important;
+			height: 2.25rem !important;
+			margin: 0 !important;
+			flex: 0 0 500px !important;
+		}
+
+		.search-bar input {
+			font-size: 0.9rem !important;
+		}
+
+		.search-icon {
+			width: 14px !important;
+			height: 14px !important;
+		}
+
+		.categories {
+			flex: 1 1 auto !important;
+		}
+
+		.category-filters button {
+			padding: 0.5rem 0.95rem !important;
+			font-size: 0.85rem !important;
+		}
+
+		.category-filters {
+			gap: 0.5rem !important;
+			max-width: none !important;
+			margin: 0 !important;
+			justify-content: flex-end !important;
+			flex-wrap: nowrap !important;
+			overflow: visible !important;
+		}
+
+		.trending {
+			padding: 3rem 0;
+			margin-top: 7rem;
+		}
 	}
 </style>

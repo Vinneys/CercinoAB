@@ -36,3 +36,98 @@ img, video, canvas {
   height: auto;
   display: block;
 }
+
+/* Desktop Responsive Design */
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 100px;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  /* Desktop container for main content */
+  .desktop-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Desktop navigation adjustments */
+  .bottom-nav {
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Desktop card layouts */
+  .desktop-card {
+    background: #1C1C1C;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+
+  /* Desktop form layouts */
+  .desktop-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Desktop hero sections */
+  .desktop-hero {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  /* Desktop typography */
+  .desktop-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .desktop-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 120px;
+  }
+
+  .desktop-container {
+    max-width: 1400px;
+    padding: 0 3rem;
+  }
+
+  .desktop-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+  }
+
+  .desktop-hero {
+    height: 60vh;
+    min-height: 500px;
+  }
+
+  .desktop-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .desktop-container {
+    max-width: 1600px;
+    padding: 0 4rem;
+  }
+
+  .desktop-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 4rem;
+  }
+}

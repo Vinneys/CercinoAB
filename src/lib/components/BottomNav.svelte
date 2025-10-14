@@ -79,7 +79,98 @@
 
     .nav-item span { font-size: 0.8rem; font-weight: 500; }
 
-    @media (min-width: 768px) {
-        .bottom-nav { max-width: 600px; }
+	@media (min-width: 768px) {
+		.bottom-nav {
+			max-width: 400px;
+			height: 50px;
+			padding: 0.375rem 0.75rem;
+			border-radius: 8px;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+		}
+
+		.nav-item {
+			gap: 0.3rem;
+			padding: 0.375rem 0.5rem;
+			border-radius: 6px;
+			transition: all 0.2s ease;
+		}
+
+		.nav-item:hover {
+			background: rgba(255, 255, 255, 0.06);
+		}
+
+		.nav-item.active {
+			background: rgba(241, 108, 179, 0.12);
+		}
+
+		.nav-icon {
+			width: 14px;
+			height: 14px;
+			transition: all 0.2s ease;
+		}
+
+		.nav-item span {
+			font-size: 0.7rem;
+			font-weight: 500;
+			letter-spacing: 0.2px;
+		}
+	}
+
+    @media (min-width: 1024px) {
+        .bottom-nav { 
+            left: 0;
+            right: 0;
+            transform: none;
+            width: 100%;
+            max-width: none;
+            height: 55px;
+            padding: 0.45rem 0.9rem;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            padding: 0.45rem 0.6rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-item span {
+            font-size: 0.75rem;
+            text-align: center;
+        }
+    }
+
+    @media (min-width: 1440px) {
+        .bottom-nav { 
+            left: 0;
+            right: 0;
+            transform: none;
+            width: 100%;
+            max-width: none;
+            height: 60px;
+            padding: 0.5rem 1rem;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            padding: 0.5rem 0.75rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-item span {
+            font-size: 0.8rem;
+            text-align: center;
+        }
     }
 </style>

@@ -3,16 +3,16 @@
 	import CuliseDemo from '$lib/assets/CuliseDemo.jpg';
 </script>
 
-<div class="forgot-password-page">
+<div class="forgot-password-page desktop-container">
 	<!-- Background Image -->
 	<div class="background-image">
 		<img src={CuliseDemo} alt="Restaurant background" class="bg-image" />
 	</div>
 
 	<!-- Content Card -->
-	<div class="content-card">
-		<h1 class="main-title">Let's solve the issue 👋</h1>
-		<p class="instructions">Write your email down below and we will send you a password reset link!</p>
+	<div class="content-card desktop-form">
+		<h1 class="main-title desktop-title">Let's solve the issue 👋</h1>
+		<p class="instructions desktop-subtitle">Write your email down below and we will send you a password reset link!</p>
 
 		<div class="form-section">
 			<label for="email" class="input-label">Email</label>
@@ -128,5 +128,116 @@
 
 	.login-btn:hover {
 		background: #ff8bb3;
+	}
+
+	/* Desktop Responsive Styles */
+	@media (min-width: 768px) {
+		.forgot-password-page {
+			padding: 2rem;
+		}
+
+		.content-card {
+			padding: 3rem;
+			max-width: 500px;
+			border-radius: 20px;
+			box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+		}
+
+		.main-title {
+			font-size: 2.2rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.instructions {
+			font-size: 1.1rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.input-label {
+			font-size: 1.1rem;
+			font-weight: 600;
+		}
+
+		.email-input {
+			padding: 1rem 1.5rem;
+			font-size: 1.1rem;
+			border-radius: 10px;
+		}
+
+		.login-btn {
+			padding: 1rem 1.5rem;
+			font-size: 1.1rem;
+			border-radius: 10px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.forgot-password-page {
+			padding: 3rem;
+		}
+
+		.content-card {
+			padding: 4rem;
+			max-width: 600px;
+		}
+
+		.main-title {
+			font-size: 2.5rem;
+			margin-bottom: 2rem;
+		}
+
+		.instructions {
+			font-size: 1.2rem;
+			margin-bottom: 3rem;
+		}
+
+		.input-label {
+			font-size: 1.2rem;
+		}
+
+		.email-input {
+			padding: 1.25rem 2rem;
+			font-size: 1.2rem;
+		}
+
+		.login-btn {
+			padding: 1.25rem 2rem;
+			font-size: 1.2rem;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.forgot-password-page {
+			padding: 4rem;
+		}
+
+		.content-card {
+			padding: 5rem;
+			max-width: 700px;
+		}
+
+		.main-title {
+			font-size: 3rem;
+			margin-bottom: 2.5rem;
+		}
+
+		.instructions {
+			font-size: 1.3rem;
+			margin-bottom: 3.5rem;
+		}
+
+		.input-label {
+			font-size: 1.3rem;
+		}
+
+		.email-input {
+			padding: 1.5rem 2.5rem;
+			font-size: 1.3rem;
+		}
+
+		.login-btn {
+			padding: 1.5rem 2.5rem;
+			font-size: 1.3rem;
+		}
 	}
 </style>
